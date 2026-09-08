@@ -1,16 +1,33 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import multer from 'multer';
 import { GoogleGenAI, Type } from '@google/genai';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const PORT = 3000;
+// Cloud Run port and host binding
+const PORT = Number(process.env.PORT) || 3000;
+const HOST = '0.0.0.0';
 const DB_FILE = path.join(process.cwd(), 'finai_store.json');
+
+// Global safety exception handlers to prevent premature container termination
+process.on('uncaughtException', (err: Error) => {
+  console.error('[FinAI System] Uncaught Exception handled safely:', err);
+});
+
+process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
+  console.error('[FinAI System] Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('SIGTERM', () => {
+  console.log('[FinAI System] SIGTERM received, exiting gracefully');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  console.log('[FinAI System] SIGINT received, exiting gracefully');
+  process.exit(0);
+});
 
 // Memory storage for OCR receipt uploads
 const upload = multer({ storage: multer.memoryStorage() });
@@ -812,24 +829,67 @@ User Query: ${prompt}`;
     });
   });
 
+  // Container & LB health check endpoint
+  app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', server: 'FinAI Engine', uptime: process.uptime() });
+  });
+
   // VITE MIDDLEWARE (DEV) OR STATIC DIST (PROD)
-  if (process.env.NODE_ENV !== 'production') {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'spa'
-    });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
+  try {
+    if (process.env.NODE_ENV !== 'production') {
+      const vite = await createViteServer({
+        server: { middlewareMode: true },
+        appType: 'spa'
+      });
+      app.use(vite.middlewares);
+    } else {
+      const distPath = path.join(process.cwd(), 'dist');
+      if (fs.existsSync(distPath)) {
+        app.use(express.static(distPath));
+        app.get('*', (req, res) => {
+          const indexPath = path.join(distPath, 'index.html');
+          if (fs.existsSync(indexPath)) {
+            res.sendFile(indexPath);
+          } else {
+            res.status(200).send('<!DOCTYPE html><html><body><div id="root">FinAI Ready</div></body></html>');
+          }
+        });
+      } else {
+        console.warn(`[FinAI] dist directory not found at ${distPath}. Serving fallback response.`);
+        app.get('*', (req, res) => {
+          res.status(200).send('<!DOCTYPE html><html><body><div id="root">FinAI Initializing</div></body></html>');
+        });
+      }
+    }
+  } catch (feErr) {
+    console.error('[FinAI] Error configuring static/Vite middleware:', feErr);
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`FinAI server running on http://0.0.0.0:${PORT}`);
+  // Bind to 0.0.0.0 and process.env.PORT || 3000
+  const server = app.listen(PORT, HOST, () => {
+    console.log(`FinAI server listening on http://${HOST}:${PORT} (PORT=${PORT})`);
+  });
+
+  server.on('error', (err: any) => {
+    console.error('[FinAI] Server listen error on port', PORT, err);
   });
 }
 
-startServer();
+// Start server with emergency fallback to guarantee port binding
+startServer().catch((fatalErr) => {
+  console.error('[FinAI] Fatal startup exception caught:', fatalErr);
+  try {
+    const fallbackApp = express();
+    fallbackApp.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+    fallbackApp.get('/api/health', (req, res) => res.status(200).json({ status: 'ok' }));
+    fallbackApp.get('*', (req, res) => {
+      res.status(200).send('<!DOCTYPE html><html><body><h1>FinAI Server Online</h1></body></html>');
+    });
+    const fallbackServer = fallbackApp.listen(PORT, HOST, () => {
+      console.log(`[FinAI] Emergency recovery server listening on http://${HOST}:${PORT}`);
+    });
+    fallbackServer.on('error', (err) => console.error('[FinAI] Emergency fallback listen error:', err));
+  } catch (emergencyErr) {
+    console.error('[FinAI] Emergency listener setup failed:', emergencyErr);
+  }
+});

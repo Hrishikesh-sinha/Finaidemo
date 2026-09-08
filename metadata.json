@@ -2,7 +2,8 @@
   "name": "FinAI",
   "description": "Zero-cost privacy-first personal finance dashboard with local ML categorization, anomaly detection, smart budgeting, OCR receipt scanning, and AI financial advisory.",
   "requestFramePermissions": [
-    "microphone"
+    "microphone",
+    "camera"
   ],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

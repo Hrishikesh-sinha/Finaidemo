@@ -5,7 +5,7 @@ import {
   ArrowLeft, ArrowRight, ShieldAlert,
   Info, PieChart as PieIcon, BarChart2, Calendar, Check,
   Sparkles, CheckCircle2, XCircle, ArrowUpRight, Shield,
-  FileText, Copy, RefreshCw, Loader2
+  FileText, Copy, RefreshCw, Loader2, Camera
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
@@ -42,6 +42,7 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
   const [categoryChartType, setCategoryChartType] = useState<'donut' | 'bar'>('donut');
   
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalInitialMethod, setModalInitialMethod] = useState<'manual' | 'ocr'>('manual');
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Anomaly action state for quick Verify / Dismiss
@@ -501,9 +502,17 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
                 <span>FinAI Assistant</span>
               </button>
               <button 
+                id="btn-scan-receipt-header"
+                onClick={() => { setModalInitialMethod('ocr'); setIsModalOpen(true); }}
+                className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#21262D] text-[#E6EDF3] hover:text-white rounded-lg border border-[#2A2F3A] hover:border-[#4A9EFF] hover:bg-[#30363D] transition-all text-xs font-medium shadow-xs cursor-pointer"
+              >
+                <Camera className="w-3.5 h-3.5 text-[#4A9EFF]" />
+                <span>Scan Receipt</span>
+              </button>
+              <button 
                 id="btn-add-entry"
-                onClick={() => setIsModalOpen(true)}
-                className="flex items-center space-x-1.5 px-3.5 py-1.5 bg-[#4A9EFF] text-white rounded-lg font-medium hover:bg-[#3b8eed] transition-all text-xs shadow-xs"
+                onClick={() => { setModalInitialMethod('manual'); setIsModalOpen(true); }}
+                className="flex items-center space-x-1.5 px-3.5 py-1.5 bg-[#4A9EFF] text-white rounded-lg font-medium hover:bg-[#3b8eed] transition-all text-xs shadow-xs cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Entry</span>
@@ -1079,9 +1088,33 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
                 {transactions.length} Records
               </span>
             </div>
-            <span className="text-xs text-[#8B949E]">
-              {mockUser ? 'Portfolio Ingestion Feed' : 'Live Journal Ingestion Feed'}
-            </span>
+            <div className="flex items-center gap-2">
+              {!mockUser && (
+                <>
+                  <button
+                    id="btn-scan-receipt-table"
+                    onClick={() => { setModalInitialMethod('ocr'); setIsModalOpen(true); }}
+                    className="flex items-center gap-1.5 text-xs text-[#E6EDF3] hover:text-white px-2.5 py-1 rounded-lg bg-[#21262D] hover:bg-[#30363D] border border-[#2A2F3A] hover:border-[#4A9EFF] transition-colors cursor-pointer shadow-xs font-medium"
+                  >
+                    <Camera className="w-3 h-3 text-[#4A9EFF]" />
+                    <span>Scan Receipt</span>
+                  </button>
+                  <button
+                    id="btn-add-entry-table"
+                    onClick={() => { setModalInitialMethod('manual'); setIsModalOpen(true); }}
+                    className="flex items-center gap-1 text-xs text-white px-2.5 py-1 rounded-lg bg-[#4A9EFF] hover:bg-[#3b8eed] transition-colors cursor-pointer shadow-xs font-medium"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Add Entry</span>
+                  </button>
+                </>
+              )}
+              {mockUser && (
+                <span className="text-xs text-[#8B949E]">
+                  Portfolio Ingestion Feed
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="overflow-x-auto max-h-[380px] scrollbar-thin scrollbar-thumb-[#2A2F3A] scrollbar-track-transparent">
@@ -1298,6 +1331,7 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
         {!mockUser && (
           <TransactionModal 
             isOpen={isModalOpen} 
+            initialMethod={modalInitialMethod}
             onClose={() => setIsModalOpen(false)} 
             onTransactionAdded={fetchData}
             token={token || ''} 

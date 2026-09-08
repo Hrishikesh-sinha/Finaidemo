@@ -1,15 +1,17 @@
-import { useState, useRef, type FormEvent, type ChangeEvent } from 'react';
-import { Mic, UploadCloud, X, Loader2 } from 'lucide-react';
+import { useState, useEffect, type FormEvent } from 'react';
+import { Mic, X, Loader2, Camera, PenLine } from 'lucide-react';
+import { ReceiptScanner } from './ReceiptScanner';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onTransactionAdded: () => void;
   token: string;
+  initialMethod?: 'manual' | 'voice' | 'ocr';
 }
 
-export function TransactionModal({ isOpen, onClose, onTransactionAdded, token }: Props) {
-  const [method, setMethod] = useState<'manual' | 'voice' | 'ocr'>('manual');
+export function TransactionModal({ isOpen, onClose, onTransactionAdded, token, initialMethod = 'manual' }: Props) {
+  const [method, setMethod] = useState<'manual' | 'voice' | 'ocr'>(initialMethod);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -21,9 +23,16 @@ export function TransactionModal({ isOpen, onClose, onTransactionAdded, token }:
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
 
-  // OCR state
-  const [ocrPreview, setOcrPreview] = useState<{ amount: number, merchant: string, preview_text: string } | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // Sync tab method when opening modal
+  useEffect(() => {
+    if (isOpen) {
+      setMethod(initialMethod);
+      setError('');
+      setAmount('');
+      setMerchant('');
+      setTranscript('');
+    }
+  }, [isOpen, initialMethod]);
 
   if (!isOpen) return null;
 
@@ -98,92 +107,86 @@ export function TransactionModal({ isOpen, onClose, onTransactionAdded, token }:
     }
   };
 
-  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || !e.target.files[0]) return;
-    setLoading(true);
-    setError('');
-    const formData = new FormData();
-    formData.append('file', e.target.files[0]);
-    
-    try {
-      const res = await fetch('/api/transactions/ocr', {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: formData
-      });
-      if (!res.ok) throw new Error('Failed to process image OCR');
-      const data = await res.json();
-      setOcrPreview(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const confirmOcr = async () => {
-    if (!ocrPreview) return;
-    setLoading(true);
-    try {
-      const res = await fetch('/api/transactions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ amount: ocrPreview.amount, merchant: ocrPreview.merchant })
-      });
-      if (!res.ok) throw new Error('Failed to save OCR transaction');
-      onTransactionAdded();
-      onClose();
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs">
-      <div className="bg-[#161B22] border border-[#2A2F3A] rounded-xl shadow-2xl w-full max-w-md overflow-hidden relative font-sans text-[#E6EDF3]">
-        <button onClick={onClose} className="absolute right-4 top-4 text-[#8B949E] hover:text-[#E6EDF3] p-1.5 rounded-md hover:bg-[#21262D] transition-colors">
-          <X className="w-4 h-4" />
-        </button>
-        
-        <div className="p-6">
-          <div className="mb-5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#4A9EFF]/10 text-[#4A9EFF] border border-[#4A9EFF]/30">Ledger Entry</span>
-            <h2 className="text-lg font-bold text-[#E6EDF3] tracking-tight mt-2">Record Transaction</h2>
+      <div className="bg-[#161B22] border border-[#2A2F3A] rounded-xl shadow-2xl w-full max-w-lg overflow-hidden relative font-sans text-[#E6EDF3] max-h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="p-5 pb-3 flex items-center justify-between border-b border-[#2A2F3A] bg-[#0D1117]/60">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-[#4A9EFF]/10 text-[#4A9EFF] border border-[#4A9EFF]/30">
+              Journal Entry
+            </span>
+            <h2 className="text-base font-bold text-[#E6EDF3] tracking-tight">Record Transaction</h2>
           </div>
-          
+          <button 
+            onClick={onClose} 
+            className="text-[#8B949E] hover:text-[#E6EDF3] p-1.5 rounded-md hover:bg-[#21262D] transition-colors cursor-pointer"
+            aria-label="Close dialog"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        
+        {/* Modal Body */}
+        <div className="p-5 overflow-y-auto scrollbar-thin scrollbar-thumb-[#2A2F3A]">
+          {/* Navigation Tabs */}
           <div className="flex space-x-1.5 mb-5 p-1 bg-[#0D1117] rounded-lg border border-[#2A2F3A]">
             <button 
-              onClick={() => { setMethod('manual'); setOcrPreview(null); }}
-              className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-colors ${method === 'manual' ? 'bg-[#4A9EFF] text-white shadow-xs' : 'text-[#8B949E] hover:text-[#E6EDF3]'}`}
+              id="tab-manual"
+              type="button"
+              onClick={() => setMethod('manual')}
+              className={`flex-1 py-1.5 px-2 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
+                method === 'manual' 
+                  ? 'bg-[#4A9EFF] text-white shadow-xs' 
+                  : 'text-[#8B949E] hover:text-[#E6EDF3]'
+              }`}
             >
-              Manual
+              <PenLine className="w-3.5 h-3.5" />
+              <span>Manual</span>
             </button>
             <button 
-              onClick={() => { setMethod('voice'); setOcrPreview(null); }}
-              className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-colors ${method === 'voice' ? 'bg-[#4A9EFF] text-white shadow-xs' : 'text-[#8B949E] hover:text-[#E6EDF3]'}`}
+              id="tab-scan-receipt"
+              type="button"
+              onClick={() => setMethod('ocr')}
+              className={`flex-1 py-1.5 px-2 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
+                method === 'ocr' 
+                  ? 'bg-[#4A9EFF] text-white shadow-xs' 
+                  : 'text-[#8B949E] hover:text-[#E6EDF3]'
+              }`}
             >
-              Voice Note
+              <Camera className="w-3.5 h-3.5" />
+              <span>Scan Receipt</span>
             </button>
             <button 
-              onClick={() => { setMethod('ocr'); }}
-              className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-colors ${method === 'ocr' ? 'bg-[#4A9EFF] text-white shadow-xs' : 'text-[#8B949E] hover:text-[#E6EDF3]'}`}
+              id="tab-voice"
+              type="button"
+              onClick={() => setMethod('voice')}
+              className={`flex-1 py-1.5 px-2 text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
+                method === 'voice' 
+                  ? 'bg-[#4A9EFF] text-white shadow-xs' 
+                  : 'text-[#8B949E] hover:text-[#E6EDF3]'
+              }`}
             >
-              Receipt OCR
+              <Mic className="w-3.5 h-3.5" />
+              <span>Voice Note</span>
             </button>
           </div>
 
-          {error && <div className="mb-4 p-3 bg-[#F85149]/10 border border-[#F85149]/30 text-[#F85149] text-xs rounded-lg">{error}</div>}
+          {error && (
+            <div className="mb-4 p-3 bg-[#F85149]/10 border border-[#F85149]/30 text-[#F85149] text-xs rounded-lg">
+              {error}
+            </div>
+          )}
 
+          {/* TAB 1: Manual Entry Form */}
           {method === 'manual' && (
             <form onSubmit={handleManualSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-[#8B949E] mb-1.5">Amount (₹)</label>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-[#8B949E] mb-1.5">
+                  Amount (₹)
+                </label>
                 <input 
+                  id="manual-amount-input"
                   type="number" 
                   step="0.01"
                   required
@@ -194,8 +197,11 @@ export function TransactionModal({ isOpen, onClose, onTransactionAdded, token }:
                 />
               </div>
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-[#8B949E] mb-1.5">Counterparty / Merchant</label>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-[#8B949E] mb-1.5">
+                  Counterparty / Merchant
+                </label>
                 <input 
+                  id="manual-merchant-input"
                   type="text" 
                   required
                   value={merchant}
@@ -204,70 +210,54 @@ export function TransactionModal({ isOpen, onClose, onTransactionAdded, token }:
                   placeholder="e.g. Blue Tokai Coffee"
                 />
               </div>
-              <button disabled={loading} type="submit" className="w-full bg-[#4A9EFF] text-white font-medium py-2.5 rounded-lg hover:bg-[#3b8eed] transition-colors flex items-center justify-center text-xs tracking-wider mt-6 shadow-xs">
+              <button 
+                id="btn-manual-submit"
+                disabled={loading} 
+                type="submit" 
+                className="w-full bg-[#4A9EFF] text-white font-medium py-2.5 rounded-lg hover:bg-[#3b8eed] transition-colors flex items-center justify-center text-xs tracking-wider mt-6 shadow-xs cursor-pointer disabled:opacity-50"
+              >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'COMMIT LEDGER ENTRY'}
               </button>
             </form>
           )}
 
+          {/* TAB 2: Scan Receipt (Client-Side Tesseract.js OCR) */}
+          {method === 'ocr' && (
+            <ReceiptScanner 
+              token={token} 
+              onSuccess={() => {
+                onTransactionAdded();
+                onClose();
+              }}
+              onCancel={onClose}
+              onSwitchToManual={() => setMethod('manual')}
+            />
+          )}
+
+          {/* TAB 3: Voice Note */}
           {method === 'voice' && (
             <div className="flex flex-col items-center justify-center py-6 space-y-4">
               <button 
+                id="btn-record-voice"
                 onClick={startVoiceRecording}
                 disabled={isRecording || loading}
-                className={`p-5 rounded-full flex items-center justify-center transition-all ${
+                className={`p-5 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                   isRecording ? 'bg-[#F85149]/20 text-[#F85149] animate-pulse border border-[#F85149]/40' : 'bg-[#21262D] text-[#4A9EFF] border border-[#2A2F3A] hover:border-[#4A9EFF]'
                 }`}
               >
                 {loading ? <Loader2 className="w-6 h-6 animate-spin text-[#4A9EFF]" /> : <Mic className="w-6 h-6" />}
               </button>
               <div className="text-center">
-                <p className="text-xs font-medium text-[#E6EDF3]">{isRecording ? 'Listening...' : 'Tap microphone to dictate'}</p>
-                <p className="text-[11px] text-[#8B949E] mt-1 italic font-sans">"Spent 350 rupees on books at Crossword"</p>
+                <p className="text-xs font-medium text-[#E6EDF3]">
+                  {isRecording ? 'Listening...' : 'Tap microphone to dictate'}
+                </p>
+                <p className="text-[11px] text-[#8B949E] mt-1 italic font-sans">
+                  "Spent 350 rupees on books at Crossword"
+                </p>
               </div>
               {transcript && (
                 <div className="w-full p-3 bg-[#0D1117] border border-[#2A2F3A] rounded-lg text-xs text-[#E6EDF3] italic">
                   "{transcript}"
-                </div>
-              )}
-            </div>
-          )}
-
-          {method === 'ocr' && (
-            <div className="space-y-4">
-              {!ocrPreview ? (
-                <div 
-                  onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-[#2A2F3A] bg-[#0D1117]/50 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-[#0D1117] hover:border-[#4A9EFF] transition-all"
-                >
-                  <UploadCloud className="w-7 h-7 text-[#8B949E] mb-2" />
-                  <p className="text-xs font-medium text-[#E6EDF3]">Upload Receipt or Statement</p>
-                  <p className="text-[11px] text-[#8B949E] mt-1">JPEG, PNG, WEBP</p>
-                  <input type="file" className="hidden" ref={fileInputRef} accept="image/*" onChange={handleFileUpload} />
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="p-4 bg-[#0D1117] border border-[#2A2F3A] rounded-lg">
-                    <h3 className="text-[11px] font-semibold text-[#8B949E] uppercase tracking-wider mb-2.5">Extracted Details</h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-[#8B949E]">Merchant</span>
-                        <span className="text-xs font-medium text-[#E6EDF3]">{ocrPreview.merchant}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-[#8B949E]">Amount</span>
-                        <span className="text-xs font-mono font-medium text-[#3FB950]">₹{ocrPreview.amount.toFixed(2)}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex space-x-3 pt-2">
-                    <button onClick={() => setOcrPreview(null)} className="flex-1 py-2 text-xs font-medium text-[#E6EDF3] bg-[#21262D] border border-[#2A2F3A] rounded-lg hover:bg-[#30363D] transition-colors">
-                      Retake
-                    </button>
-                    <button onClick={confirmOcr} disabled={loading} className="flex-1 py-2 text-xs font-medium text-white bg-[#4A9EFF] rounded-lg hover:bg-[#3b8eed] flex justify-center items-center transition-colors shadow-xs">
-                      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Confirm'}
-                    </button>
-                  </div>
                 </div>
               )}
             </div>
