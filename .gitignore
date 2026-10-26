@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+*.bak
+finai_data.sqlite*
+finai_store.json*
+ml-service/.venv/
+__pycache__/
+data/kaggle/*.csv
+.venv/
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-*

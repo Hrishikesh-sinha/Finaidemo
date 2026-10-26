@@ -1,0 +1,11 @@
+{
+  "name": "FinAI",
+  "description": "Privacy-first personal finance dashboard with rule-based categorization, statistical anomaly detection, in-browser OCR receipt scanning, smart budgeting, and AI financial advisory.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

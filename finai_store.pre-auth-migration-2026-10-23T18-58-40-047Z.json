@@ -1,0 +1,3213 @@
+{
+  "users": [
+    {
+      "id": "user_demo_1",
+      "username": "demo_user",
+      "monthly_income": 50000,
+      "target_savings_percent": 20,
+      "password_hash": "scrypt$32768$8$1$QS+mtNLJhNerQoHFetFdQg==$xB20x311qTKBfL7Zkxz00bgLcbzVgnXkwi6LnEUuy4Vvgq+FbVSR9rFHd7YHAOjYoz5tD+gsA+MHE8LGbp5cuA=="
+    }
+  ],
+  "transactions": [
+    {
+      "id": "tx_demo_0",
+      "user_id": "user_demo_1",
+      "amount": 8000,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2025-08-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_1",
+      "user_id": "user_demo_1",
+      "amount": 1758.94,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2025-08-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_2",
+      "user_id": "user_demo_1",
+      "amount": 1800,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2025-08-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_3",
+      "user_id": "user_demo_1",
+      "amount": 663.65,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-08-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_4",
+      "user_id": "user_demo_1",
+      "amount": 898.95,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-08-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_5",
+      "user_id": "user_demo_1",
+      "amount": 999.23,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-08-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_6",
+      "user_id": "user_demo_1",
+      "amount": 314.47,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-08-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_7",
+      "user_id": "user_demo_1",
+      "amount": 363.91,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-08-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_8",
+      "user_id": "user_demo_1",
+      "amount": 628.98,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-08-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_9",
+      "user_id": "user_demo_1",
+      "amount": 811.04,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-08-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_10",
+      "user_id": "user_demo_1",
+      "amount": 797.32,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-09-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_11",
+      "user_id": "user_demo_1",
+      "amount": 424.2,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-08-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_12",
+      "user_id": "user_demo_1",
+      "amount": 414.86,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-09-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_13",
+      "user_id": "user_demo_1",
+      "amount": 1427.04,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2025-09-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_14",
+      "user_id": "user_demo_1",
+      "amount": 988.61,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-09-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_15",
+      "user_id": "user_demo_1",
+      "amount": 758.23,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-09-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_16",
+      "user_id": "user_demo_1",
+      "amount": 660.48,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-09-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_17",
+      "user_id": "user_demo_1",
+      "amount": 349.89,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-09-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_18",
+      "user_id": "user_demo_1",
+      "amount": 353.27,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-09-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_19",
+      "user_id": "user_demo_1",
+      "amount": 1329.93,
+      "merchant": "Spotify Premium",
+      "category": "Entertainment",
+      "date": "2025-09-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_20",
+      "user_id": "user_demo_1",
+      "amount": 697.98,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-09-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_21",
+      "user_id": "user_demo_1",
+      "amount": 892.22,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-09-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_22",
+      "user_id": "user_demo_1",
+      "amount": 1013.62,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-09-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_23",
+      "user_id": "user_demo_1",
+      "amount": 476.61,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-09-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_24",
+      "user_id": "user_demo_1",
+      "amount": 489.93,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-09-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_25",
+      "user_id": "user_demo_1",
+      "amount": 2110.88,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2025-09-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_26",
+      "user_id": "user_demo_1",
+      "amount": 8160,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2025-09-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_27",
+      "user_id": "user_demo_1",
+      "amount": 2052.61,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2025-09-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_28",
+      "user_id": "user_demo_1",
+      "amount": 1836,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2025-09-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_29",
+      "user_id": "user_demo_1",
+      "amount": 839.31,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-09-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_30",
+      "user_id": "user_demo_1",
+      "amount": 724.61,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-09-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_31",
+      "user_id": "user_demo_1",
+      "amount": 753.28,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-09-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_32",
+      "user_id": "user_demo_1",
+      "amount": 532.96,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-09-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_33",
+      "user_id": "user_demo_1",
+      "amount": 451.51,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-09-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_34",
+      "user_id": "user_demo_1",
+      "amount": 975.4,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-09-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_35",
+      "user_id": "user_demo_1",
+      "amount": 933.17,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-09-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_36",
+      "user_id": "user_demo_1",
+      "amount": 826.96,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-09-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_37",
+      "user_id": "user_demo_1",
+      "amount": 328.29,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-09-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_38",
+      "user_id": "user_demo_1",
+      "amount": 476.08,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-09-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_39",
+      "user_id": "user_demo_1",
+      "amount": 1136.17,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2025-09-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_40",
+      "user_id": "user_demo_1",
+      "amount": 1010.36,
+      "merchant": "PVR Cinema & IMAX",
+      "category": "Entertainment",
+      "date": "2025-10-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_41",
+      "user_id": "user_demo_1",
+      "amount": 968.88,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-10-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_42",
+      "user_id": "user_demo_1",
+      "amount": 1035.34,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-10-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_43",
+      "user_id": "user_demo_1",
+      "amount": 968.4,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-10-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_44",
+      "user_id": "user_demo_1",
+      "amount": 310.22,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-10-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_45",
+      "user_id": "user_demo_1",
+      "amount": 389.63,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-10-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_46",
+      "user_id": "user_demo_1",
+      "amount": 742.5,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-10-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_47",
+      "user_id": "user_demo_1",
+      "amount": 896.11,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-10-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_48",
+      "user_id": "user_demo_1",
+      "amount": 648.97,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-10-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_49",
+      "user_id": "user_demo_1",
+      "amount": 533.14,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-10-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_50",
+      "user_id": "user_demo_1",
+      "amount": 385.26,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-10-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_51",
+      "user_id": "user_demo_1",
+      "amount": 1273.83,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2025-10-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_52",
+      "user_id": "user_demo_1",
+      "amount": 8320,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2025-10-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_53",
+      "user_id": "user_demo_1",
+      "amount": 1944.58,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2025-10-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_54",
+      "user_id": "user_demo_1",
+      "amount": 1872,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2025-10-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_55",
+      "user_id": "user_demo_1",
+      "amount": 922.07,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-10-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_56",
+      "user_id": "user_demo_1",
+      "amount": 899.95,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-10-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_57",
+      "user_id": "user_demo_1",
+      "amount": 712.27,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-10-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_58",
+      "user_id": "user_demo_1",
+      "amount": 506.37,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-10-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_59",
+      "user_id": "user_demo_1",
+      "amount": 426.81,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-10-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_60",
+      "user_id": "user_demo_1",
+      "amount": 903.97,
+      "merchant": "Netflix Subscription",
+      "category": "Entertainment",
+      "date": "2025-10-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_61",
+      "user_id": "user_demo_1",
+      "amount": 846.94,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-10-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_62",
+      "user_id": "user_demo_1",
+      "amount": 1068.87,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-10-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_63",
+      "user_id": "user_demo_1",
+      "amount": 746.22,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-10-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_64",
+      "user_id": "user_demo_1",
+      "amount": 335.52,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-10-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_65",
+      "user_id": "user_demo_1",
+      "amount": 551.53,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-10-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_66",
+      "user_id": "user_demo_1",
+      "amount": 2120.48,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2025-10-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_67",
+      "user_id": "user_demo_1",
+      "amount": 10193.39,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2025-10-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_68",
+      "user_id": "user_demo_1",
+      "amount": 737.14,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-10-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_69",
+      "user_id": "user_demo_1",
+      "amount": 846.87,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-11-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_70",
+      "user_id": "user_demo_1",
+      "amount": 704.75,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-11-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_71",
+      "user_id": "user_demo_1",
+      "amount": 455.86,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-11-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_72",
+      "user_id": "user_demo_1",
+      "amount": 543.81,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-11-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_73",
+      "user_id": "user_demo_1",
+      "amount": 727.88,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-11-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_74",
+      "user_id": "user_demo_1",
+      "amount": 750.83,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-11-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_75",
+      "user_id": "user_demo_1",
+      "amount": 749.94,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-11-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_76",
+      "user_id": "user_demo_1",
+      "amount": 550.54,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-11-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_77",
+      "user_id": "user_demo_1",
+      "amount": 436.49,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-11-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_78",
+      "user_id": "user_demo_1",
+      "amount": 2164.46,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2025-11-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_79",
+      "user_id": "user_demo_1",
+      "amount": 871.26,
+      "merchant": "BookMyShow",
+      "category": "Entertainment",
+      "date": "2025-11-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_80",
+      "user_id": "user_demo_1",
+      "amount": 8480,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2025-11-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_81",
+      "user_id": "user_demo_1",
+      "amount": 1780.44,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2025-11-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_82",
+      "user_id": "user_demo_1",
+      "amount": 1908,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2025-11-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_83",
+      "user_id": "user_demo_1",
+      "amount": 763.69,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-11-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_84",
+      "user_id": "user_demo_1",
+      "amount": 849.37,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-11-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_85",
+      "user_id": "user_demo_1",
+      "amount": 716.4,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-11-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_86",
+      "user_id": "user_demo_1",
+      "amount": 401.29,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-11-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_87",
+      "user_id": "user_demo_1",
+      "amount": 418.55,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-11-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_88",
+      "user_id": "user_demo_1",
+      "amount": 894.81,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-11-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_89",
+      "user_id": "user_demo_1",
+      "amount": 836.35,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-11-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_90",
+      "user_id": "user_demo_1",
+      "amount": 954.46,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-11-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_91",
+      "user_id": "user_demo_1",
+      "amount": 316.61,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-11-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_92",
+      "user_id": "user_demo_1",
+      "amount": 342.29,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-11-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_93",
+      "user_id": "user_demo_1",
+      "amount": 1992.79,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2025-11-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_94",
+      "user_id": "user_demo_1",
+      "amount": 1043.03,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-11-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_95",
+      "user_id": "user_demo_1",
+      "amount": 1092.18,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-11-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_96",
+      "user_id": "user_demo_1",
+      "amount": 907.78,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-12-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_97",
+      "user_id": "user_demo_1",
+      "amount": 389.94,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-11-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_98",
+      "user_id": "user_demo_1",
+      "amount": 422.18,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-12-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_99",
+      "user_id": "user_demo_1",
+      "amount": 1349.49,
+      "merchant": "Spotify Premium",
+      "category": "Entertainment",
+      "date": "2025-12-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_100",
+      "user_id": "user_demo_1",
+      "amount": 976.67,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-12-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_101",
+      "user_id": "user_demo_1",
+      "amount": 1122.86,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-12-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_102",
+      "user_id": "user_demo_1",
+      "amount": 1029.26,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-12-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_103",
+      "user_id": "user_demo_1",
+      "amount": 547.32,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-12-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_104",
+      "user_id": "user_demo_1",
+      "amount": 388.86,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-12-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_105",
+      "user_id": "user_demo_1",
+      "amount": 1731.14,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2025-12-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_106",
+      "user_id": "user_demo_1",
+      "amount": 8640,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2025-12-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_107",
+      "user_id": "user_demo_1",
+      "amount": 1938.91,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2025-12-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_108",
+      "user_id": "user_demo_1",
+      "amount": 1944,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2025-12-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_109",
+      "user_id": "user_demo_1",
+      "amount": 1100.59,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2025-12-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_110",
+      "user_id": "user_demo_1",
+      "amount": 1082.76,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-12-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_111",
+      "user_id": "user_demo_1",
+      "amount": 869.55,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-12-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_112",
+      "user_id": "user_demo_1",
+      "amount": 412.45,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2025-12-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_113",
+      "user_id": "user_demo_1",
+      "amount": 539.33,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-12-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_114",
+      "user_id": "user_demo_1",
+      "amount": 981.34,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2025-12-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_115",
+      "user_id": "user_demo_1",
+      "amount": 1122.04,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-12-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_116",
+      "user_id": "user_demo_1",
+      "amount": 960.99,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-12-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_117",
+      "user_id": "user_demo_1",
+      "amount": 475.31,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2025-12-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_118",
+      "user_id": "user_demo_1",
+      "amount": 366.27,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-12-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_119",
+      "user_id": "user_demo_1",
+      "amount": 2033.67,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2025-12-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_120",
+      "user_id": "user_demo_1",
+      "amount": 946.53,
+      "merchant": "PVR Cinema & IMAX",
+      "category": "Entertainment",
+      "date": "2025-12-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_121",
+      "user_id": "user_demo_1",
+      "amount": 917.99,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2025-12-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_122",
+      "user_id": "user_demo_1",
+      "amount": 742.15,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2025-12-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_123",
+      "user_id": "user_demo_1",
+      "amount": 751.49,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2025-12-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_124",
+      "user_id": "user_demo_1",
+      "amount": 483.7,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2025-12-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_125",
+      "user_id": "user_demo_1",
+      "amount": 611.92,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2025-12-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_126",
+      "user_id": "user_demo_1",
+      "amount": 1006.12,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-01-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_127",
+      "user_id": "user_demo_1",
+      "amount": 1200.28,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-01-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_128",
+      "user_id": "user_demo_1",
+      "amount": 837.52,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-01-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_129",
+      "user_id": "user_demo_1",
+      "amount": 517.54,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-01-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_130",
+      "user_id": "user_demo_1",
+      "amount": 556.41,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-01-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_131",
+      "user_id": "user_demo_1",
+      "amount": 1677.87,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-01-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_132",
+      "user_id": "user_demo_1",
+      "amount": 8800,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-01-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_133",
+      "user_id": "user_demo_1",
+      "amount": 2315.54,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-01-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_134",
+      "user_id": "user_demo_1",
+      "amount": 1980,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-01-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_135",
+      "user_id": "user_demo_1",
+      "amount": 822.32,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-01-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_136",
+      "user_id": "user_demo_1",
+      "amount": 1079.24,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-01-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_137",
+      "user_id": "user_demo_1",
+      "amount": 908.66,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-01-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_138",
+      "user_id": "user_demo_1",
+      "amount": 387.13,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-01-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_139",
+      "user_id": "user_demo_1",
+      "amount": 481.06,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-01-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_140",
+      "user_id": "user_demo_1",
+      "amount": 1305.93,
+      "merchant": "Netflix Subscription",
+      "category": "Entertainment",
+      "date": "2026-01-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_141",
+      "user_id": "user_demo_1",
+      "amount": 1136.56,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-01-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_142",
+      "user_id": "user_demo_1",
+      "amount": 806.43,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-01-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_143",
+      "user_id": "user_demo_1",
+      "amount": 971.22,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-01-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_144",
+      "user_id": "user_demo_1",
+      "amount": 598.14,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-01-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_145",
+      "user_id": "user_demo_1",
+      "amount": 360.96,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-01-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_146",
+      "user_id": "user_demo_1",
+      "amount": 2223.6,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-01-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_147",
+      "user_id": "user_demo_1",
+      "amount": 12088.48,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-01-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_148",
+      "user_id": "user_demo_1",
+      "amount": 846.47,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-01-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_149",
+      "user_id": "user_demo_1",
+      "amount": 1191.17,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-01-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_150",
+      "user_id": "user_demo_1",
+      "amount": 899.5,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-01-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_151",
+      "user_id": "user_demo_1",
+      "amount": 611.28,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-01-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_152",
+      "user_id": "user_demo_1",
+      "amount": 620.28,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-01-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_153",
+      "user_id": "user_demo_1",
+      "amount": 868.98,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-01-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_154",
+      "user_id": "user_demo_1",
+      "amount": 1316.16,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-02-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_155",
+      "user_id": "user_demo_1",
+      "amount": 949.68,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-02-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_156",
+      "user_id": "user_demo_1",
+      "amount": 499.6,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-01-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_157",
+      "user_id": "user_demo_1",
+      "amount": 606.38,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-02-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_158",
+      "user_id": "user_demo_1",
+      "amount": 1642.02,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-02-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_159",
+      "user_id": "user_demo_1",
+      "amount": 1779.27,
+      "merchant": "BookMyShow",
+      "category": "Entertainment",
+      "date": "2026-02-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_160",
+      "user_id": "user_demo_1",
+      "amount": 8960,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-02-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_161",
+      "user_id": "user_demo_1",
+      "amount": 2457.51,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-02-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_162",
+      "user_id": "user_demo_1",
+      "amount": 2016,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-02-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_163",
+      "user_id": "user_demo_1",
+      "amount": 918.89,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-02-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_164",
+      "user_id": "user_demo_1",
+      "amount": 811.44,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-02-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_165",
+      "user_id": "user_demo_1",
+      "amount": 934.14,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-02-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_166",
+      "user_id": "user_demo_1",
+      "amount": 552.09,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-02-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_167",
+      "user_id": "user_demo_1",
+      "amount": 499.82,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-02-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_168",
+      "user_id": "user_demo_1",
+      "amount": 1047.24,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-02-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_169",
+      "user_id": "user_demo_1",
+      "amount": 1143.93,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-02-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_170",
+      "user_id": "user_demo_1",
+      "amount": 1291.96,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-02-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_171",
+      "user_id": "user_demo_1",
+      "amount": 645.13,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-02-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_172",
+      "user_id": "user_demo_1",
+      "amount": 486.49,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-02-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_173",
+      "user_id": "user_demo_1",
+      "amount": 1943.48,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-02-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_174",
+      "user_id": "user_demo_1",
+      "amount": 1260.98,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-02-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_175",
+      "user_id": "user_demo_1",
+      "amount": 1152.5,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-02-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_176",
+      "user_id": "user_demo_1",
+      "amount": 1113.66,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-02-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_177",
+      "user_id": "user_demo_1",
+      "amount": 616.36,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-02-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_178",
+      "user_id": "user_demo_1",
+      "amount": 662.32,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-02-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_179",
+      "user_id": "user_demo_1",
+      "amount": 1786.34,
+      "merchant": "Spotify Premium",
+      "category": "Entertainment",
+      "date": "2026-02-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_180",
+      "user_id": "user_demo_1",
+      "amount": 966.23,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-02-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_181",
+      "user_id": "user_demo_1",
+      "amount": 834.07,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-03-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_182",
+      "user_id": "user_demo_1",
+      "amount": 1317.88,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-03-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_183",
+      "user_id": "user_demo_1",
+      "amount": 513.67,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-02-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_184",
+      "user_id": "user_demo_1",
+      "amount": 575.24,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-03-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_185",
+      "user_id": "user_demo_1",
+      "amount": 2347.27,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-03-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_186",
+      "user_id": "user_demo_1",
+      "amount": 9120,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-03-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_187",
+      "user_id": "user_demo_1",
+      "amount": 2461.2,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-03-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_188",
+      "user_id": "user_demo_1",
+      "amount": 2052,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-03-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_189",
+      "user_id": "user_demo_1",
+      "amount": 856.46,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-03-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_190",
+      "user_id": "user_demo_1",
+      "amount": 953.79,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-03-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_191",
+      "user_id": "user_demo_1",
+      "amount": 1317.08,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-03-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_192",
+      "user_id": "user_demo_1",
+      "amount": 660.25,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-03-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_193",
+      "user_id": "user_demo_1",
+      "amount": 425.06,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-03-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_194",
+      "user_id": "user_demo_1",
+      "amount": 966.65,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-03-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_195",
+      "user_id": "user_demo_1",
+      "amount": 1336.5,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-03-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_196",
+      "user_id": "user_demo_1",
+      "amount": 1398.38,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-03-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_197",
+      "user_id": "user_demo_1",
+      "amount": 636.6,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-03-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_198",
+      "user_id": "user_demo_1",
+      "amount": 604.12,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-03-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_199",
+      "user_id": "user_demo_1",
+      "amount": 1745.15,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-03-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_200",
+      "user_id": "user_demo_1",
+      "amount": 1482.09,
+      "merchant": "PVR Cinema & IMAX",
+      "category": "Entertainment",
+      "date": "2026-03-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_201",
+      "user_id": "user_demo_1",
+      "amount": 888.95,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-03-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_202",
+      "user_id": "user_demo_1",
+      "amount": 1269.68,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-03-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_203",
+      "user_id": "user_demo_1",
+      "amount": 1197.41,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-03-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_204",
+      "user_id": "user_demo_1",
+      "amount": 432.22,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-03-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_205",
+      "user_id": "user_demo_1",
+      "amount": 450.4,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-03-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_206",
+      "user_id": "user_demo_1",
+      "amount": 1425.36,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-03-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_207",
+      "user_id": "user_demo_1",
+      "amount": 1242.5,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-03-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_208",
+      "user_id": "user_demo_1",
+      "amount": 893.03,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-03-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_209",
+      "user_id": "user_demo_1",
+      "amount": 563.34,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-03-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_210",
+      "user_id": "user_demo_1",
+      "amount": 494.96,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-03-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_211",
+      "user_id": "user_demo_1",
+      "amount": 2755.67,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-03-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_212",
+      "user_id": "user_demo_1",
+      "amount": 9280,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-04-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_213",
+      "user_id": "user_demo_1",
+      "amount": 2916.76,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-04-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_214",
+      "user_id": "user_demo_1",
+      "amount": 2088,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-04-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_215",
+      "user_id": "user_demo_1",
+      "amount": 1022.13,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-04-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_216",
+      "user_id": "user_demo_1",
+      "amount": 1191.98,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-04-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_217",
+      "user_id": "user_demo_1",
+      "amount": 1162.8,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-04-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_218",
+      "user_id": "user_demo_1",
+      "amount": 430.52,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-04-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_219",
+      "user_id": "user_demo_1",
+      "amount": 561.23,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-04-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_220",
+      "user_id": "user_demo_1",
+      "amount": 1368.37,
+      "merchant": "Netflix Subscription",
+      "category": "Entertainment",
+      "date": "2026-04-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_221",
+      "user_id": "user_demo_1",
+      "amount": 951.78,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-04-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_222",
+      "user_id": "user_demo_1",
+      "amount": 1195.27,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-04-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_223",
+      "user_id": "user_demo_1",
+      "amount": 975.72,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-04-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_224",
+      "user_id": "user_demo_1",
+      "amount": 686.09,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-04-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_225",
+      "user_id": "user_demo_1",
+      "amount": 453.55,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-04-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_226",
+      "user_id": "user_demo_1",
+      "amount": 2431.45,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-04-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_227",
+      "user_id": "user_demo_1",
+      "amount": 9925.5,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-04-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_228",
+      "user_id": "user_demo_1",
+      "amount": 1110.65,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-04-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_229",
+      "user_id": "user_demo_1",
+      "amount": 989.38,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-04-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_230",
+      "user_id": "user_demo_1",
+      "amount": 1022.06,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-04-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_231",
+      "user_id": "user_demo_1",
+      "amount": 441.02,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-04-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_232",
+      "user_id": "user_demo_1",
+      "amount": 568.34,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-04-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_233",
+      "user_id": "user_demo_1",
+      "amount": 1135.65,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-04-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_234",
+      "user_id": "user_demo_1",
+      "amount": 1372.49,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-04-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_235",
+      "user_id": "user_demo_1",
+      "amount": 881.76,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-04-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_236",
+      "user_id": "user_demo_1",
+      "amount": 520.22,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-04-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_237",
+      "user_id": "user_demo_1",
+      "amount": 613.55,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-04-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_238",
+      "user_id": "user_demo_1",
+      "amount": 2500.66,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-04-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_239",
+      "user_id": "user_demo_1",
+      "amount": 1374.59,
+      "merchant": "BookMyShow",
+      "category": "Entertainment",
+      "date": "2026-04-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_240",
+      "user_id": "user_demo_1",
+      "amount": 9440,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-05-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_241",
+      "user_id": "user_demo_1",
+      "amount": 2595.54,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-05-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_242",
+      "user_id": "user_demo_1",
+      "amount": 2124,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-05-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_243",
+      "user_id": "user_demo_1",
+      "amount": 917.7,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-05-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_244",
+      "user_id": "user_demo_1",
+      "amount": 1124.84,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-05-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_245",
+      "user_id": "user_demo_1",
+      "amount": 1243.66,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-05-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_246",
+      "user_id": "user_demo_1",
+      "amount": 605.34,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-05-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_247",
+      "user_id": "user_demo_1",
+      "amount": 633.54,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-05-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_248",
+      "user_id": "user_demo_1",
+      "amount": 1196.37,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-05-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_249",
+      "user_id": "user_demo_1",
+      "amount": 1287.91,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-05-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_250",
+      "user_id": "user_demo_1",
+      "amount": 1403.12,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-05-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_251",
+      "user_id": "user_demo_1",
+      "amount": 520.31,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-05-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_252",
+      "user_id": "user_demo_1",
+      "amount": 670.81,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-05-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_253",
+      "user_id": "user_demo_1",
+      "amount": 1559.94,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-05-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_254",
+      "user_id": "user_demo_1",
+      "amount": 950.85,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-05-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_255",
+      "user_id": "user_demo_1",
+      "amount": 1184.02,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-05-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_256",
+      "user_id": "user_demo_1",
+      "amount": 1177.87,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-05-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_257",
+      "user_id": "user_demo_1",
+      "amount": 728.25,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-05-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_258",
+      "user_id": "user_demo_1",
+      "amount": 557.9,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-05-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_259",
+      "user_id": "user_demo_1",
+      "amount": 1855.51,
+      "merchant": "Spotify Premium",
+      "category": "Entertainment",
+      "date": "2026-05-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_260",
+      "user_id": "user_demo_1",
+      "amount": 1363.03,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-05-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_261",
+      "user_id": "user_demo_1",
+      "amount": 1237.18,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-05-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_262",
+      "user_id": "user_demo_1",
+      "amount": 1244.74,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-05-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_263",
+      "user_id": "user_demo_1",
+      "amount": 720.69,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-05-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_264",
+      "user_id": "user_demo_1",
+      "amount": 437.61,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-05-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_265",
+      "user_id": "user_demo_1",
+      "amount": 2846.39,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-05-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_266",
+      "user_id": "user_demo_1",
+      "amount": 9600,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-05-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_267",
+      "user_id": "user_demo_1",
+      "amount": 2736.44,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-05-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_268",
+      "user_id": "user_demo_1",
+      "amount": 2160,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-06-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_269",
+      "user_id": "user_demo_1",
+      "amount": 860.55,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-05-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_270",
+      "user_id": "user_demo_1",
+      "amount": 1256.48,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-05-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_271",
+      "user_id": "user_demo_1",
+      "amount": 1306.43,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-06-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_272",
+      "user_id": "user_demo_1",
+      "amount": 481.64,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-05-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_273",
+      "user_id": "user_demo_1",
+      "amount": 553.15,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-06-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_274",
+      "user_id": "user_demo_1",
+      "amount": 1078.98,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-06-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_275",
+      "user_id": "user_demo_1",
+      "amount": 1050.18,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-06-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_276",
+      "user_id": "user_demo_1",
+      "amount": 1199.32,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-06-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_277",
+      "user_id": "user_demo_1",
+      "amount": 711.62,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-06-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_278",
+      "user_id": "user_demo_1",
+      "amount": 486.02,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-06-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_279",
+      "user_id": "user_demo_1",
+      "amount": 1953.31,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-06-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_280",
+      "user_id": "user_demo_1",
+      "amount": 1676.43,
+      "merchant": "PVR Cinema & IMAX",
+      "category": "Entertainment",
+      "date": "2026-06-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_281",
+      "user_id": "user_demo_1",
+      "amount": 954.71,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-06-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_282",
+      "user_id": "user_demo_1",
+      "amount": 991.58,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-06-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_283",
+      "user_id": "user_demo_1",
+      "amount": 1041.28,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-06-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_284",
+      "user_id": "user_demo_1",
+      "amount": 534.15,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-06-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_285",
+      "user_id": "user_demo_1",
+      "amount": 622.63,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-06-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_286",
+      "user_id": "user_demo_1",
+      "amount": 1324.29,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-06-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_287",
+      "user_id": "user_demo_1",
+      "amount": 1101.37,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-06-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_288",
+      "user_id": "user_demo_1",
+      "amount": 1133.98,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-06-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_289",
+      "user_id": "user_demo_1",
+      "amount": 628.24,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-06-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_290",
+      "user_id": "user_demo_1",
+      "amount": 717.41,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-06-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_291",
+      "user_id": "user_demo_1",
+      "amount": 2552.56,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-06-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_292",
+      "user_id": "user_demo_1",
+      "amount": 9760,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-06-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_293",
+      "user_id": "user_demo_1",
+      "amount": 2277.63,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-06-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_294",
+      "user_id": "user_demo_1",
+      "amount": 2196,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-06-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_295",
+      "user_id": "user_demo_1",
+      "amount": 889.13,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-06-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_296",
+      "user_id": "user_demo_1",
+      "amount": 1332.38,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-06-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_297",
+      "user_id": "user_demo_1",
+      "amount": 1109.08,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-06-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_298",
+      "user_id": "user_demo_1",
+      "amount": 465.52,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-06-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_299",
+      "user_id": "user_demo_1",
+      "amount": 417.64,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-06-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_300",
+      "user_id": "user_demo_1",
+      "amount": 1085.67,
+      "merchant": "Netflix Subscription",
+      "category": "Entertainment",
+      "date": "2026-07-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_301",
+      "user_id": "user_demo_1",
+      "amount": 989.16,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-07-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_302",
+      "user_id": "user_demo_1",
+      "amount": 1220.95,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-07-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_303",
+      "user_id": "user_demo_1",
+      "amount": 893.27,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-07-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_304",
+      "user_id": "user_demo_1",
+      "amount": 635.09,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-07-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_305",
+      "user_id": "user_demo_1",
+      "amount": 680.21,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-07-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_306",
+      "user_id": "user_demo_1",
+      "amount": 2505.95,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-07-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_307",
+      "user_id": "user_demo_1",
+      "amount": 12344.34,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-07-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_308",
+      "user_id": "user_demo_1",
+      "amount": 903.28,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-07-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_309",
+      "user_id": "user_demo_1",
+      "amount": 1199.95,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-07-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_310",
+      "user_id": "user_demo_1",
+      "amount": 974.26,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-07-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_311",
+      "user_id": "user_demo_1",
+      "amount": 395.32,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-07-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_312",
+      "user_id": "user_demo_1",
+      "amount": 470.35,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-07-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_313",
+      "user_id": "user_demo_1",
+      "amount": 903.53,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-07-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_314",
+      "user_id": "user_demo_1",
+      "amount": 1217.61,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-07-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_315",
+      "user_id": "user_demo_1",
+      "amount": 1308.94,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-07-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_316",
+      "user_id": "user_demo_1",
+      "amount": 504.16,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-07-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_317",
+      "user_id": "user_demo_1",
+      "amount": 660.75,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-07-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_318",
+      "user_id": "user_demo_1",
+      "amount": 1921.99,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-07-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_319",
+      "user_id": "user_demo_1",
+      "amount": 1115.45,
+      "merchant": "BookMyShow",
+      "category": "Entertainment",
+      "date": "2026-07-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_320",
+      "user_id": "user_demo_1",
+      "amount": 9920,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-07-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_321",
+      "user_id": "user_demo_1",
+      "amount": 2514.71,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-07-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_322",
+      "user_id": "user_demo_1",
+      "amount": 2232,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-07-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_323",
+      "user_id": "user_demo_1",
+      "amount": 1256.13,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-07-24T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_324",
+      "user_id": "user_demo_1",
+      "amount": 929.58,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-07-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_325",
+      "user_id": "user_demo_1",
+      "amount": 1332.38,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-07-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_326",
+      "user_id": "user_demo_1",
+      "amount": 435.26,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-07-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_327",
+      "user_id": "user_demo_1",
+      "amount": 538.43,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-07-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_328",
+      "user_id": "user_demo_1",
+      "amount": 1235.18,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-07-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_329",
+      "user_id": "user_demo_1",
+      "amount": 1043.13,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-08-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_330",
+      "user_id": "user_demo_1",
+      "amount": 896.18,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-08-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_331",
+      "user_id": "user_demo_1",
+      "amount": 626.14,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-08-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_332",
+      "user_id": "user_demo_1",
+      "amount": 442.22,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-08-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_333",
+      "user_id": "user_demo_1",
+      "amount": 2352.46,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-08-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_334",
+      "user_id": "user_demo_1",
+      "amount": 1145.94,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-08-07T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_335",
+      "user_id": "user_demo_1",
+      "amount": 1161.97,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-08-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_336",
+      "user_id": "user_demo_1",
+      "amount": 791.1,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-08-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_337",
+      "user_id": "user_demo_1",
+      "amount": 654.34,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-08-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_338",
+      "user_id": "user_demo_1",
+      "amount": 615.79,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-08-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_339",
+      "user_id": "user_demo_1",
+      "amount": 1086.98,
+      "merchant": "Spotify Premium",
+      "category": "Entertainment",
+      "date": "2026-08-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_340",
+      "user_id": "user_demo_1",
+      "amount": 891.87,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-08-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_341",
+      "user_id": "user_demo_1",
+      "amount": 1209,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-08-16T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_342",
+      "user_id": "user_demo_1",
+      "amount": 1010.95,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-08-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_343",
+      "user_id": "user_demo_1",
+      "amount": 431.1,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-08-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_344",
+      "user_id": "user_demo_1",
+      "amount": 571.25,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-08-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_345",
+      "user_id": "user_demo_1",
+      "amount": 1770.84,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-08-17T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_346",
+      "user_id": "user_demo_1",
+      "amount": 10080,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-08-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_347",
+      "user_id": "user_demo_1",
+      "amount": 2059.89,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-08-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_348",
+      "user_id": "user_demo_1",
+      "amount": 2268,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-08-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_349",
+      "user_id": "user_demo_1",
+      "amount": 837.32,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-08-21T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_350",
+      "user_id": "user_demo_1",
+      "amount": 1026.67,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-08-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_351",
+      "user_id": "user_demo_1",
+      "amount": 1271.39,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-08-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_352",
+      "user_id": "user_demo_1",
+      "amount": 442.47,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-08-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_353",
+      "user_id": "user_demo_1",
+      "amount": 479.56,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-08-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_354",
+      "user_id": "user_demo_1",
+      "amount": 1040.61,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-08-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_355",
+      "user_id": "user_demo_1",
+      "amount": 880.83,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-08-30T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_356",
+      "user_id": "user_demo_1",
+      "amount": 948.94,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-09-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_357",
+      "user_id": "user_demo_1",
+      "amount": 652.59,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-08-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_358",
+      "user_id": "user_demo_1",
+      "amount": 668.28,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-09-01T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_359",
+      "user_id": "user_demo_1",
+      "amount": 1681.81,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-08-31T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_360",
+      "user_id": "user_demo_1",
+      "amount": 1153.28,
+      "merchant": "PVR Cinema & IMAX",
+      "category": "Entertainment",
+      "date": "2026-09-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_361",
+      "user_id": "user_demo_1",
+      "amount": 1184.03,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-09-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_362",
+      "user_id": "user_demo_1",
+      "amount": 1190.48,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-09-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_363",
+      "user_id": "user_demo_1",
+      "amount": 871.73,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-09-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_364",
+      "user_id": "user_demo_1",
+      "amount": 629.13,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-09-05T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_365",
+      "user_id": "user_demo_1",
+      "amount": 555.23,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-09-08T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_366",
+      "user_id": "user_demo_1",
+      "amount": 1204.91,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-09-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_367",
+      "user_id": "user_demo_1",
+      "amount": 1123.88,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-09-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_368",
+      "user_id": "user_demo_1",
+      "amount": 960.73,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-09-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_369",
+      "user_id": "user_demo_1",
+      "amount": 393.91,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-09-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_370",
+      "user_id": "user_demo_1",
+      "amount": 546.12,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-09-15T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_371",
+      "user_id": "user_demo_1",
+      "amount": 1433.82,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-09-14T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_372",
+      "user_id": "user_demo_1",
+      "amount": 8356.06,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-09-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_373",
+      "user_id": "user_demo_1",
+      "amount": 10240,
+      "merchant": "Rent",
+      "category": "Bills",
+      "date": "2026-09-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_374",
+      "user_id": "user_demo_1",
+      "amount": 2583.5,
+      "merchant": "Electric Utility",
+      "category": "Bills",
+      "date": "2026-09-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_375",
+      "user_id": "user_demo_1",
+      "amount": 2304,
+      "merchant": "Internet Provider",
+      "category": "Bills",
+      "date": "2026-09-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_376",
+      "user_id": "user_demo_1",
+      "amount": 1139.16,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-09-18T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_377",
+      "user_id": "user_demo_1",
+      "amount": 1084.28,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-09-20T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_378",
+      "user_id": "user_demo_1",
+      "amount": 1194.89,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-09-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_379",
+      "user_id": "user_demo_1",
+      "amount": 628.92,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-09-19T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_380",
+      "user_id": "user_demo_1",
+      "amount": 453.75,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-09-22T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_381",
+      "user_id": "user_demo_1",
+      "amount": 1674.56,
+      "merchant": "Netflix Subscription",
+      "category": "Entertainment",
+      "date": "2026-09-23T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_382",
+      "user_id": "user_demo_1",
+      "amount": 880.64,
+      "merchant": "Starbucks",
+      "category": "Food",
+      "date": "2026-09-25T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_383",
+      "user_id": "user_demo_1",
+      "amount": 1261.42,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-09-27T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_384",
+      "user_id": "user_demo_1",
+      "amount": 913.36,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-09-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_385",
+      "user_id": "user_demo_1",
+      "amount": 405.91,
+      "merchant": "MTA Subway Pass",
+      "category": "Transport",
+      "date": "2026-09-26T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_386",
+      "user_id": "user_demo_1",
+      "amount": 465.55,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-09-29T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_387",
+      "user_id": "user_demo_1",
+      "amount": 2288.92,
+      "merchant": "Target Store",
+      "category": "Shopping",
+      "date": "2026-09-28T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_388",
+      "user_id": "user_demo_1",
+      "amount": 889.72,
+      "merchant": "Cafe Coffee Day",
+      "category": "Food",
+      "date": "2026-10-02T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_389",
+      "user_id": "user_demo_1",
+      "amount": 877.81,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-10-04T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_390",
+      "user_id": "user_demo_1",
+      "amount": 1020.51,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-10-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_391",
+      "user_id": "user_demo_1",
+      "amount": 498.38,
+      "merchant": "Lyft Commute",
+      "category": "Transport",
+      "date": "2026-10-03T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_392",
+      "user_id": "user_demo_1",
+      "amount": 595.59,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-10-06T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_393",
+      "user_id": "user_demo_1",
+      "amount": 918.18,
+      "merchant": "Swiggy Gourmet",
+      "category": "Food",
+      "date": "2026-10-09T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_394",
+      "user_id": "user_demo_1",
+      "amount": 1221.77,
+      "merchant": "Local Restaurant",
+      "category": "Food",
+      "date": "2026-10-11T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_395",
+      "user_id": "user_demo_1",
+      "amount": 1253.09,
+      "merchant": "Whole Foods",
+      "category": "Food",
+      "date": "2026-10-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_396",
+      "user_id": "user_demo_1",
+      "amount": 672.34,
+      "merchant": "City Metro Transit",
+      "category": "Transport",
+      "date": "2026-10-10T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_397",
+      "user_id": "user_demo_1",
+      "amount": 414.96,
+      "merchant": "Uber Ride",
+      "category": "Transport",
+      "date": "2026-10-13T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_398",
+      "user_id": "user_demo_1",
+      "amount": 2166.96,
+      "merchant": "Decathlon",
+      "category": "Shopping",
+      "date": "2026-10-12T10:22:15.941Z"
+    },
+    {
+      "id": "tx_demo_399",
+      "user_id": "user_demo_1",
+      "amount": 1319.98,
+      "merchant": "BookMyShow",
+      "category": "Entertainment",
+      "date": "2026-10-14T10:22:15.941Z"
+    }
+  ]
+}

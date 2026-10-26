@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   FinAI design tokens.
+
+   Colour values are not hand-picked. The surface steps are spaced so each
+   level clears the one below it on a washed-out projector (every step >= 1.23:1,
+   against 1.09:1 before), and the five category hues were re-stepped into the
+   dark-mode OKLCH lightness band (L 0.48-0.67) with chroma >= 0.10 and then
+   validated: worst adjacent pair dE 21.4 normal vision, 12.8 under protanopia
+   and deuteranopia (Machado-Oliveira-Fernandes 2009, severity 1.0). Every mark
+   clears 3:1 against every surface it is drawn on.
+
+   Category colour follows the category, never its rank, so a chart that
+   re-sorts never repaints its bars.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Anek Latin (Ek Type, India). One family; its width axis gives narrow,
+     strong headings and figures and regular-width body text. */
+  --font-sans: 'Anek Latin Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Direction A, "sidebar workspace": an indigo sidebar holding the
+     navigation, a white workspace with warm-grey tiles, and saffron as the
+     one action colour. Measured (scripts in docs/FINAI_UI_UX_REDESIGN.md):
+       ink / ink-2 / ink-3 on every surface >= 5.0:1
+       white on accent 5.6:1, on accent-hi 7.0:1; accent as text >= 4.6:1
+       status colours as text >= 4.8:1; field outline >= 3.4:1
+       sidebar text on sidebar 9.3:1, on the active item 10.3:1 (white)
+       accent vs error / warning dE2000 17.4 / 17.6, so actions never pose
+       as warnings */
+
+  --color-canvas: #FFFFFF;
+  --color-sunken: #EDEBE4;
+  --color-surface: #F6F5F1;
+  --color-raised: #ECEAE3;
+
+  --color-line: #E0DED6;
+  --color-line-strong: #C9C6BC;
+  /* Form-field outline: >= 3:1 against the field and every surface. */
+  --color-field: #807E76;
+
+  --color-ink: #2C2C2A;
+  --color-ink-2: #5A5954;
+  --color-ink-3: #64635D;
+
+  /* Saffron: primary actions and the current item only. */
+  --color-accent: #B4431A;
+  --color-accent-hi: #963614;
+  --color-accent-dim: #F8E3D8;
+
+  /* The sidebar. */
+  --color-side: #26215C;
+  --color-side-active: #3C3489;
+  --color-side-ink: #CECBF6;
+  /* Saffron light enough to read on the sidebar indigo (6.9:1). */
+  --color-accent-on-side: #F5A05E;
+
+  --color-pos: #2E6A1F;
+  --color-caution: #8F5A00;
+  --color-neg: #B2203F;
+
+  /* Categories: every slot >= 3:1 on every surface; worst pair dE2000 21.7
+     normal, 18.8 protan, 15.2 deutan (Machado 2009 @1.0); >= 14.4 from indigo,
+     saffron and every status colour. */
+  --color-cat-bills: #317DAA;
+  --color-cat-food: #504827;
+  --color-cat-transport: #2A958C;
+  --color-cat-shopping: #692B6A;
+  --color-cat-entertainment: #698A45;
+  --color-cat-other: #7A7973;
+
+  /* Type. The old interface sat almost entirely at 12px; everything here is a
+     step up so body copy survives a projector. */
+  --text-micro: 0.75rem;      /* 12px - metadata, axis ticks, chips */
+  --text-micro--line-height: 1.1rem;
+  --text-xs: 0.8125rem;       /* 13px - secondary copy */
+  --text-xs--line-height: 1.2rem;
+  --text-sm: 0.875rem;        /* 14px - body */
+  --text-sm--line-height: 1.375rem;
+  --text-base: 0.9375rem;     /* 15px - lead paragraphs */
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.0625rem;       /* 17px - card titles */
+  --text-lg--line-height: 1.5rem;
+  --text-xl: 1.3125rem;       /* 21px - section titles */
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.625rem;       /* 26px */
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 2.125rem;       /* 34px */
+  --text-3xl--line-height: 2.375rem;
+  --text-4xl: 3rem;           /* 48px - panel hero figures */
+  --text-4xl--line-height: 1;
+  --text-5xl: 4rem;           /* 64px - page hero figure */
+  --text-5xl--line-height: 1;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+:root { color-scheme: light; }
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Numeric columns and any figure that animates: fixed-width digits so the
+   layout does not jitter while a value counts up. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Headings and large figures use Anek's narrower width: strong without
+   being heavy, and long rupee amounts fit. Body text stays at normal width. */
+h1, h2, .text-3xl, .text-4xl, .text-5xl {
+  font-stretch: 92%;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------------------
+   Range inputs. The simulator's sliders need a visible track, a baseline tick
+   at zero and a cap marker, none of which the native control provides. The
+   track is painted by the component through --track; the thumb is styled here.
+--------------------------------------------------------------------------- */
+
+.fin-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+.fin-range::-webkit-slider-runnable-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--track, var(--color-raised));
+}
+.fin-range::-moz-range-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--track, var(--color-raised));
+}
+.fin-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.3125rem;
+  border-radius: 9999px;
+  background: var(--color-ink);
+  border: 2px solid var(--color-canvas);
+  box-shadow: 0 0 0 1px var(--color-line-strong);
+  transition: transform 120ms ease;
+}
+.fin-range::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--color-ink);
+  border: 2px solid var(--color-canvas);
+  box-shadow: 0 0 0 1px var(--color-line-strong);
+  transition: transform 120ms ease;
+}
+.fin-range:hover::-webkit-slider-thumb { transform: scale(1.12); }
+.fin-range:hover::-moz-range-thumb { transform: scale(1.12); }
+.fin-range:disabled { cursor: not-allowed; opacity: 0.5; }
+
+/* Thin scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-line-strong); }
+
+.scrollbar-thin::-webkit-scrollbar { width: 5px; height: 5px; }
+.scrollbar-thumb-slate-700::-webkit-scrollbar-thumb { background: var(--color-line); }
+.scrollbar-track-transparent::-webkit-scrollbar-track { background: transparent; }
+
+/* Sign-in screen ------------------------------------------------------- */
+
+/* The product's own equation, used as the headline. */
+.auth-equation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.26em;
+  row-gap: 0.05em;
+  font-size: clamp(2.8rem, 6.6vw, 5.25rem);
+  line-height: 1;
+  font-weight: 650;
+  font-stretch: 82%;
+  letter-spacing: -0.02em;
+}
+.auth-term { white-space: nowrap; display: inline-flex; align-items: baseline; gap: 0.26em; }
+.auth-op {
+  color: var(--color-side-ink);
+  font-weight: 300;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-field);
+  border-radius: 0.5rem;
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.auth-input:hover { border-color: var(--color-ink-3); }
+.auth-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+.auth-input[aria-invalid="true"] { border-color: var(--color-neg); }
+.auth-input[aria-invalid="true"]:focus { box-shadow: 0 0 0 1px var(--color-neg); }
+/* Hide number spinners in the income field. */
+.auth-input[type="number"]::-webkit-outer-spin-button,
+.auth-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.auth-input[type="number"] { -moz-appearance: textfield; }
+
+/* Every text field gets an outline that meets 3:1 (WCAG 1.4.11). This beats
+   the hairline border utilities some fields carry, on purpose. */
+input[type="text"], input[type="number"], input[type="date"], input[type="password"],
+input[type="email"], input[type="search"], select, textarea {
+  border-color: var(--color-field);
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="password"]:focus,
+input[type="email"]:focus, input[type="search"]:focus, select:focus, textarea:focus {
+  border-color: var(--color-accent);
+}
