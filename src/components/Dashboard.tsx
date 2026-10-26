@@ -771,18 +771,7 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
             </div>
           )}
 
-          {(stats.synthetic_demo_data || !!mockUser) && (
-            <div
-              id="synthetic-data-notice"
-              className="flex items-start gap-2.5 p-3 rounded-lg bg-caution/10 border border-caution/30 text-caution"
-            >
-              <Info className="w-4 h-4 mt-0.5 shrink-0" />
-              <p className="text-xs leading-relaxed">
-                <span className="font-semibold">Synthetic demo data:</span>{' '}
-                60 weeks of simulated spending, not real financial records.
-              </p>
-            </div>
-          )}
+          
 
           {/* STALE LOG NOTICE - the 30-day window runs to today, so days with
               nothing logged count as no spending. Say so instead of presenting
