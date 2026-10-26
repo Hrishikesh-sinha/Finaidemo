@@ -12,6 +12,7 @@ import { hashPassword, signToken } from './auth';
 import { RateLimiter } from './rateLimit';
 import { generateDemoSeed } from './seed';
 import { SqliteRepo } from './db';
+import { sqliteAsRepo } from './repo';
 import type { StoredTransaction } from './types';
 
 const SECRET = 'integration-test-secret-longer-than-32-characters';
@@ -47,7 +48,7 @@ async function harness(opts: { generate?: GenerateFn | null; ml?: MlForecast | n
   const h: Partial<Harness> = { geminiCalls: 0 };
   const generate = opts.generate === undefined ? null : opts.generate;
   const app = createApp({
-    repo,
+    repo: sqliteAsRepo(repo),
     authSecret: SECRET,
     now: () => NOW,
     fetchForecast: async () => (opts.ml === undefined ? null : opts.ml),
@@ -380,7 +381,7 @@ test('forecast fallback on a stale log projects from the 30 days before the late
   const fresh = (await h.call('GET', '/api/dashboard', { token: t })).body;
   // Same data viewed 14 days later: the rolling window shrinks, the forecast basis must not.
   const later = createApp({
-    repo: h.repo, authSecret: SECRET, now: () => NOW + 14 * 86400000,
+    repo: sqliteAsRepo(h.repo), authSecret: SECRET, now: () => NOW + 14 * 86400000,
     fetchForecast: async () => null, generate: null, log: { info() {}, warn() {}, error() {} }
   }).listen(0);
   servers.push(later);

@@ -12,3 +12,6 @@ data/kaggle/*.csv
 !.env.example
 *.sqlite
 *.sqlite-*
+
+# Firebase service-account keys (secret; set FIREBASE_SERVICE_ACCOUNT instead)
+*firebase-adminsdk*.json

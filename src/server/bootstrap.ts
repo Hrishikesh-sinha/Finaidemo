@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { hashPassword } from './auth';
 import { SqliteRepo } from './db';
+import { sqliteAsRepo, type Repo } from './repo';
 import { DEMO_TX_ID_PREFIX, generateDemoSeed } from './seed';
 import { migratePasswords, readStore } from './store';
 import type { StoredUser } from './types';
@@ -54,3 +55,26 @@ export async function openDatabase(opts: { dbFile: string; legacyJsonFile: strin
   return repo;
 }
 
+
+// The store the server runs on. With Firestore (production), every record is
+// kept there and nothing is written to disk; an empty Firestore gets the demo
+// account. Without it (local development), the SQLite file as before.
+export async function openStore(opts: { dbFile: string; legacyJsonFile: string; demoPassword?: string; now?: Date; log?: (m: string) => void; firestore?: Repo | null }): Promise<Repo> {
+  const log = opts.log ?? console.log;
+  if (!opts.firestore) return sqliteAsRepo(await openDatabase(opts));
+  const repo = opts.firestore;
+  if ((await repo.userCount()) > 0) return repo;
+  const demoUser: StoredUser = { id: 'user_demo_1', username: 'demo_user', monthly_income: 50000.0, target_savings_percent: 20.0 };
+  if (opts.demoPassword) {
+    if (opts.demoPassword.length < 8) throw new Error('DEMO_PASSWORD must be at least 8 characters');
+    demoUser.password_hash = await hashPassword(opts.demoPassword);
+  }
+  await repo.createUser(demoUser);
+  await repo.insertTransactions(generateDemoSeed(demoUser.id, opts.now ?? new Date()), 'synthetic');
+  log(
+    opts.demoPassword
+      ? '[FinAI] Firestore was empty: created demo_user with synthetic demo data (password from DEMO_PASSWORD).'
+      : '[FinAI] Firestore was empty: created demo_user with synthetic demo data. It has no password yet: run `npm run user:set-password -- demo_user` with FIREBASE_SERVICE_ACCOUNT set.'
+  );
+  return repo;
+}

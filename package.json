@@ -10,11 +10,12 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/simulator/engine.test.ts src/simulator/grounding.test.ts src/server/aiFacts.test.ts src/server/app.test.ts src/server/auth.test.ts src/server/categorize.test.ts src/server/db.test.ts src/server/kaggleImport.test.ts src/server/reporting.test.ts src/server/store.test.ts src/server/validation.test.ts src/forecast/benchmark.test.ts",
+    "test": "tsx --test src/simulator/engine.test.ts src/simulator/grounding.test.ts src/server/aiFacts.test.ts src/server/app.test.ts src/server/auth.test.ts src/server/categorize.test.ts src/server/db.test.ts src/server/kaggleImport.test.ts src/server/reporting.test.ts src/server/store.test.ts src/server/validation.test.ts src/forecast/benchmark.test.ts src/server/firestoreRepo.test.ts",
     "user:set-password": "tsx scripts/set-password.ts",
     "admin:grant": "tsx scripts/grant-admin.ts",
     "import:kaggle": "tsx scripts/import-kaggle.ts",
-    "train:categorizer": "tsx scripts/train-categorizer.ts"
+    "train:categorizer": "tsx scripts/train-categorizer.ts",
+    "firestore:upload": "tsx scripts/firestore-upload.ts"
   },
   "dependencies": {
     "@fontsource-variable/anek-latin": "5.3.0",
@@ -24,6 +25,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
+    "firebase-admin": "^13.10.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.1",

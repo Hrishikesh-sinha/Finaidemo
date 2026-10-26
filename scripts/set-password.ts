@@ -7,9 +7,8 @@
 // The password is typed at a hidden prompt (or piped on stdin), hashed with
 // scrypt, and never printed or logged. Safe to run while the server is up.
 
-import { DB_FILE, promptHidden } from './cli-common';
+import { openRepo, promptHidden } from './cli-common';
 import { hashPassword } from '../src/server/auth';
-import { SqliteRepo } from '../src/server/db';
 
 async function readPassword(): Promise<string> {
   if (process.stdin.isTTY) {
@@ -26,16 +25,16 @@ async function readPassword(): Promise<string> {
 async function main() {
   const username = process.argv[2];
   if (!username) throw new Error('Usage: npm run user:set-password -- <username>');
-  const repo = new SqliteRepo(DB_FILE);
+  const repo = await openRepo();
   try {
-    const user = repo.findUserByUsername(username);
+    const user = await repo.findUserByUsername(username);
     if (!user) throw new Error(`No account named ${username}.`);
     const password = await readPassword();
     if (password.length < 8 || password.length > 128) throw new Error('Password must be 8–128 characters.');
-    repo.setPasswordHash(user.id, await hashPassword(password));
+    await repo.setPasswordHash(user.id, await hashPassword(password));
     console.log(`Password updated for ${user.username}.`);
   } finally {
-    repo.close();
+    await repo.close();
   }
 }
 

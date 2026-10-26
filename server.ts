@@ -6,6 +6,9 @@
 //                   per-process secret is used and sessions end on restart.
 //   GEMINI_API_KEY  optional; without it, AI text uses built-in templates.
 //   ML_SERVICE_URL  forecasting service, default http://localhost:8000.
+//   FIREBASE_SERVICE_ACCOUNT  service-account JSON. When set, every record is
+//                   stored in Firebase Firestore and nothing on disk. Unset,
+//                   a local SQLite file is used (development only).
 
 import './src/server/quietSqliteWarning';
 import dotenv from 'dotenv';
@@ -16,7 +19,8 @@ import { createServer as createViteServer } from 'vite';
 import { createApp, ML_FORECAST_HORIZON_WEEKS, type MlForecast } from './src/server/app';
 import { resolveAuthSecret } from './src/server/auth';
 import { makeGeminiGenerator } from './src/server/gemini';
-import { openDatabase } from './src/server/bootstrap';
+import { openStore } from './src/server/bootstrap';
+import { firestoreFromEnv } from './src/server/firestoreRepo';
 import { DB_FILE, LEGACY_JSON_FILE } from './src/server/paths';
 
 // .env.local first (what RUNNING_LOCALLY.md tells you to create), then .env.
@@ -77,7 +81,11 @@ async function startServer() {
     console.warn('[FinAI] AUTH_SECRET is not set: using a random key for this run. Everyone is signed out when the server restarts.');
   }
 
-  const repo = await openDatabase({ dbFile: DB_FILE, legacyJsonFile: LEGACY_JSON_FILE, demoPassword: process.env.DEMO_PASSWORD });
+  const firestore = await firestoreFromEnv();
+  if (!firestore) {
+    console.warn(`[FinAI] FIREBASE_SERVICE_ACCOUNT is not set: storing data in the local file ${path.basename(DB_FILE)}${process.env.NODE_ENV === 'production' ? '. On a host that wipes its disk (Render free tier) this data is lost on every restart' : ''}.`);
+  }
+  const repo = await openStore({ dbFile: DB_FILE, legacyJsonFile: LEGACY_JSON_FILE, demoPassword: process.env.DEMO_PASSWORD, firestore });
   const app = createApp({
     repo,
     authSecret: secret,

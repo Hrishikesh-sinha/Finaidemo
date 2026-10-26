@@ -15,7 +15,7 @@ import {
 import { categorize, categorizerInfo } from './categorize';
 import { RateLimiter } from './rateLimit';
 import { summarize } from './reporting';
-import type { SqliteRepo } from './db';
+import type { Repo } from './repo';
 import type { StoredTransaction, StoredUser } from './types';
 import {
   parseVoiceText, validateNewTransaction, validatePasswordChange, validateProfileUpdate, validateRegistration, validateTransactionUpdate
@@ -47,7 +47,7 @@ export interface GenerateRequest {
 export type GenerateFn = (req: GenerateRequest) => Promise<string>;
 
 export interface AppDeps {
-  repo: SqliteRepo;
+  repo: Repo;
   authSecret: string;
   fetchForecast: (weekly: number[]) => Promise<MlForecast | null>;
   generate: GenerateFn | null;
@@ -89,10 +89,12 @@ export function createApp(deps: AppDeps) {
     const header = req.headers.authorization;
     if (!header || !header.startsWith('Bearer ')) return bad(res, 'Missing or invalid authentication token', 401);
     const claims = verifyToken(header.slice(7).trim(), authSecret, now());
-    const user = claims ? repo.findUserById(claims.sub) : undefined;
-    if (!user) return bad(res, 'Invalid or expired session', 401);
-    (req as AuthedRequest).user = user;
-    next();
+    if (!claims) return bad(res, 'Invalid or expired session', 401);
+    repo.findUserById(claims.sub).then(user => {
+      if (!user) return bad(res, 'Invalid or expired session', 401);
+      (req as AuthedRequest).user = user;
+      next();
+    }, next);
   };
 
   const aiQuota = (req: Request, res: Response, next: NextFunction) => {
@@ -145,22 +147,28 @@ export function createApp(deps: AppDeps) {
   // Accounts
   // -------------------------------------------------------------------------
 
-  app.get('/api/health', (_req, res) => res.json({ status: 'ok', server: 'FinAI Engine' }));
+  app.get('/api/health', (_req, res) => res.json({ status: 'ok', server: 'FinAI Engine', storage: repo.backend }));
 
   app.post('/api/register', ah(async (req, res) => {
     const v = validateRegistration(req.body);
     if ('error' in v) return bad(res, v.error);
     const { username, password, monthly_income } = v.value;
-    if (repo.findUserByUsername(username)) {
+    if (await repo.findUserByUsername(username)) {
       return bad(res, 'Username already registered');
     }
-    repo.createUser({
-      id: `user_${randomBytes(9).toString('base64url')}`,
-      username,
-      password_hash: await hashPassword(password),
-      monthly_income,
-      target_savings_percent: 20.0
-    });
+    try {
+      await repo.createUser({
+        id: `user_${randomBytes(9).toString('base64url')}`,
+        username,
+        password_hash: await hashPassword(password),
+        monthly_income,
+        target_savings_percent: 20.0
+      });
+    } catch (err) {
+      // Two registrations for the same name at once: the second loses here.
+      if (await repo.findUserByUsername(username)) return bad(res, 'Username already registered');
+      throw err;
+    }
     return res.json({ message: 'User registered successfully' });
   }));
 
@@ -172,7 +180,7 @@ export function createApp(deps: AppDeps) {
       res.setHeader('Retry-After', String(wait));
       return bad(res, `Too many sign-in attempts. Try again in ${wait} seconds.`, 429);
     }
-    const user = repo.findUserByUsername(username);
+    const user = await repo.findUserByUsername(username);
     const valid = user?.password_hash
       ? await verifyPassword(password, user.password_hash)
       : await burnPasswordCheck(password);
@@ -190,18 +198,18 @@ export function createApp(deps: AppDeps) {
     });
   });
 
-  app.put('/api/profile', requireAuth, (req, res) => {
+  app.put('/api/profile', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
     const v = validateProfileUpdate(req.body);
     if ('error' in v) return bad(res, v.error);
-    const updated = repo.updateProfile(user.id, v.value)!;
+    const updated = (await repo.updateProfile(user.id, v.value))!;
     return res.json({
       username: updated.username,
       monthly_income: updated.monthly_income,
       target_savings_percent: updated.target_savings_percent,
       is_admin: updated.role === 'admin'
     });
-  });
+  }));
 
   // Changing the password needs the current one; same rate limit as sign-in,
   // so a stolen session cannot be used to guess it.
@@ -216,7 +224,7 @@ export function createApp(deps: AppDeps) {
     if ('error' in v) return bad(res, v.error);
     const ok = user.password_hash ? await verifyPassword(v.value.current, user.password_hash) : false;
     if (!ok) return bad(res, 'Your current password is not correct.');
-    repo.setPasswordHash(user.id, await hashPassword(v.value.next));
+    await repo.setPasswordHash(user.id, await hashPassword(v.value.next));
     return res.json({ message: 'Password changed' });
   }));
 
@@ -226,10 +234,9 @@ export function createApp(deps: AppDeps) {
 
   app.get('/api/dashboard', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    const txs = userTxs(user);
+    const [txs, reviews, importRaw] = await Promise.all([userTxs(user), repo.getReviews(user.id), repo.getMeta(`import:${user.id}`)]);
     const t = now();
     const s = summarize(user, txs, t);
-    const reviews = repo.getReviews(user.id);
     // Forecast: Chronos-2 (26+ weeks) or 8-week average from ml-service; a
     // labelled flat projection if the service is unreachable. The forecast
     // covers the 4 weeks after the latest transaction, which is not the same
@@ -302,10 +309,9 @@ export function createApp(deps: AppDeps) {
       // For imported sample data: which dataset, its original dates, and how
       // far they were shifted, so the UI can say exactly what was done.
       data_import: (() => {
-        const raw = repo.getMeta(`import:${user.id}`);
-        if (!raw) return null;
+        if (!importRaw) return null;
         try {
-          const m = JSON.parse(raw);
+          const m = JSON.parse(importRaw);
           return { dataset: m.dataset, url: m.url, original_first: m.original_first, original_last: m.original_last, shift_weeks: m.shift_weeks };
         } catch {
           return null;
@@ -330,37 +336,37 @@ export function createApp(deps: AppDeps) {
   // 404 for both "missing" and "someone else's", so ids cannot be probed.
   const ownTx = (user: StoredUser, id: string) => repo.getTransaction(user.id, id);
 
-  app.get('/api/transactions', requireAuth, (req, res) => {
+  app.get('/api/transactions', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    const list = userTxs(user).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const list = (await userTxs(user)).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     return res.json(list.map(publicTx));
-  });
+  }));
 
-  app.post('/api/transactions', requireAuth, (req, res) => {
+  app.post('/api/transactions', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
     const v = validateNewTransaction(req.body, now());
     if ('error' in v) return bad(res, v.error);
     const tx: StoredTransaction = { id: newTxId(), user_id: user.id, ...v.value };
-    repo.insertTransaction(tx, 'user');
+    await repo.insertTransaction(tx, 'user');
     return res.json({ message: 'Transaction added', id: tx.id, category: tx.category, transaction: publicTx(tx) });
-  });
+  }));
 
-  app.put('/api/transactions/:id', requireAuth, (req, res) => {
+  app.put('/api/transactions/:id', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    const tx = ownTx(user, req.params.id);
+    const tx = await ownTx(user, req.params.id);
     if (!tx) return bad(res, 'Transaction not found', 404);
     const v = validateTransactionUpdate(req.body, now());
     if ('error' in v) return bad(res, v.error);
-    const updated = repo.updateTransaction(user.id, tx.id, v.value)!;
+    const updated = (await repo.updateTransaction(user.id, tx.id, v.value))!;
     return res.json({ message: 'Transaction updated', transaction: publicTx(updated) });
-  });
+  }));
 
-  app.delete('/api/transactions/:id', requireAuth, (req, res) => {
+  app.delete('/api/transactions/:id', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    // Reviews of the transaction are removed with it (ON DELETE CASCADE).
-    if (!repo.deleteTransaction(user.id, req.params.id)) return bad(res, 'Transaction not found', 404);
+    // Reviews of the transaction are removed with it.
+    if (!(await repo.deleteTransaction(user.id, req.params.id))) return bad(res, 'Transaction not found', 404);
     return res.json({ message: 'Transaction deleted', id: req.params.id });
-  });
+  }));
 
   // Live facts for Settings, "Data & models": what is running right now and
   // the trained model's own details. Measured accuracy figures live in
@@ -387,26 +393,26 @@ export function createApp(deps: AppDeps) {
   });
 
   // The person's verdict on a flagged transaction; null clears it.
-  app.put('/api/anomalies/:id/review', requireAuth, (req, res) => {
+  app.put('/api/anomalies/:id/review', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    if (!ownTx(user, req.params.id)) return bad(res, 'Transaction not found', 404);
+    if (!(await ownTx(user, req.params.id))) return bad(res, 'Transaction not found', 404);
     const status = req.body?.status;
     if (status !== 'expected' && status !== 'dismissed' && status !== null) {
       return bad(res, 'Status must be "expected", "dismissed" or null.');
     }
-    repo.setReview(user.id, req.params.id, status);
+    await repo.setReview(user.id, req.params.id, status);
     return res.json({ id: req.params.id, review: status });
-  });
+  }));
 
-  app.post('/api/transactions/voice', requireAuth, (req, res) => {
+  app.post('/api/transactions/voice', requireAuth, ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
     const text = typeof req.query.text === 'string' ? req.query.text : req.body?.text;
     const v = parseVoiceText(text);
     if ('error' in v) return bad(res, v.error);
     const tx: StoredTransaction = { id: newTxId(), user_id: user.id, ...v.value, date: new Date(now()).toISOString() };
-    repo.insertTransaction(tx, 'user');
+    await repo.insertTransaction(tx, 'user');
     return res.json({ amount: tx.amount, merchant: tx.merchant, category: tx.category, id: tx.id });
-  });
+  }));
 
   // -------------------------------------------------------------------------
   // Gemini: chat, insights, monthly report. All grounded, all with fallbacks.
@@ -418,7 +424,7 @@ export function createApp(deps: AppDeps) {
     if (typeof prompt !== 'string' || !prompt.trim()) return bad(res, 'Prompt is required.');
     if (prompt.length > MAX_CHAT_PROMPT_LENGTH) return bad(res, `Prompt must be at most ${MAX_CHAT_PROMPT_LENGTH} characters.`);
 
-    const s = summarize(user, userTxs(user), now());
+    const s = summarize(user, await userTxs(user), now());
     const facts = buildSummaryFacts(s);
     const allowed = [...facts.allowed, ...extractNumbers(prompt)];
     const result = await grounded(
@@ -440,7 +446,7 @@ export function createApp(deps: AppDeps) {
 
   app.post('/api/ai/insights', requireAuth, aiQuota, noClientFigures([]), ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    const s = summarize(user, userTxs(user), now());
+    const s = summarize(user, await userTxs(user), now());
     const facts = buildSummaryFacts(s);
     const result = await grounded(
       { system: INSIGHTS_SYSTEM, user: factsBlock(facts), json: true, temperature: 0 },
@@ -471,7 +477,7 @@ export function createApp(deps: AppDeps) {
 
   app.post('/api/ai/monthly-report', requireAuth, aiQuota, noClientFigures([]), ah(async (req, res) => {
     const user = (req as AuthedRequest).user;
-    const s = summarize(user, userTxs(user), now());
+    const s = summarize(user, await userTxs(user), now());
     const facts = buildSummaryFacts(s);
     const result = await grounded(
       { system: REPORT_SYSTEM, user: factsBlock(facts), temperature: 0 },
@@ -496,7 +502,7 @@ export function createApp(deps: AppDeps) {
   // -------------------------------------------------------------------------
 
   const simulatorStateFor = async (user: StoredUser): Promise<FinancialState> => {
-    const txs = userTxs(user);
+    const txs = await userTxs(user);
     const state = buildFinancialState(txs, user, new Date(now()));
     const weekly = toWeeklySeries(txs, now()).totals;
     if (weekly.length === 0) return state;
