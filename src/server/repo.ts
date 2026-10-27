@@ -17,7 +17,8 @@ export interface Repo {
   userCount(): Promise<number>;
   findUserById(id: string): Promise<StoredUser | undefined>;
   findUserByUsername(username: string): Promise<StoredUser | undefined>;
-  // Throws if the username (case-insensitive) or id is already taken.
+  findUserByEmail(email: string): Promise<StoredUser | undefined>;
+  // Throws if the username or email (case-insensitive) or id is already taken.
   createUser(u: StoredUser, createdAt?: string): Promise<void>;
   updateProfile(id: string, fields: { monthly_income?: number; target_savings_percent?: number }): Promise<StoredUser | undefined>;
   setPasswordHash(id: string, hash: string): Promise<void>;
@@ -46,6 +47,7 @@ export function sqliteAsRepo(r: SqliteRepo): Repo {
     userCount: async () => r.userCount(),
     findUserById: async id => r.findUserById(id),
     findUserByUsername: async u => r.findUserByUsername(u),
+    findUserByEmail: async e => r.findUserByEmail(e),
     createUser: async (u, at) => r.createUser(u, at),
     updateProfile: async (id, f) => r.updateProfile(id, f),
     setPasswordHash: async (id, h) => r.setPasswordHash(id, h),

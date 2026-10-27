@@ -3,12 +3,13 @@
 // so Render's free tier wiping its disk on restart loses nothing.
 //
 // Layout
-//   users/{userId}                          username, username_lower, password_hash,
+//   users/{userId}                          username, username_lower, email, password_hash,
 //                                           monthly_income, target_savings_percent,
 //                                           role, created_at
 //   users/{userId}/transactions/{txId}      amount, merchant, category, date, source
 //   users/{userId}/anomaly_reviews/{txId}   status
 //   usernames/{username in lower case}      user_id   (keeps usernames unique)
+//   emails/{email in lower case}            user_id   (keeps emails unique)
 //   meta/{key}                              value
 //
 // Transactions sit under their owner, so a lookup by another user's id finds
@@ -52,6 +53,7 @@ function checkUser(u: StoredUser) {
 const toUser = (id: string, d: Doc): StoredUser => ({
   id,
   username: String(d.username),
+  ...(d.email == null ? {} : { email: String(d.email) }),
   password_hash: d.password_hash == null ? undefined : String(d.password_hash),
   monthly_income: Number(d.monthly_income),
   target_savings_percent: Number(d.target_savings_percent),
@@ -89,6 +91,7 @@ export class FirestoreRepo implements Repo {
   private txs(userId: string) { return this.db.collection(`users/${userId}/transactions`); }
   private reviews(userId: string) { return this.db.collection(`users/${userId}/anomaly_reviews`); }
   private usernames() { return this.db.collection('usernames'); }
+  private emails() { return this.db.collection('emails'); }
 
   // ---- users -------------------------------------------------------------
 
@@ -109,15 +112,25 @@ export class FirestoreRepo implements Repo {
     return this.findUserById(String((idx.data() as Doc).user_id));
   }
 
-  // One batch: `create` fails if the username or the id is taken, and then
-  // nothing is written.
+  async findUserByEmail(email: string): Promise<StoredUser | undefined> {
+    if (typeof email !== 'string' || !email.trim()) return undefined;
+    const idx = await this.emails().doc(nameKey(email.trim())).get();
+    if (!idx.exists) return undefined;
+    return this.findUserById(String((idx.data() as Doc).user_id));
+  }
+
+  // One batch: `create` fails if the username, email or id is taken, and
+  // then nothing is written.
   async createUser(u: StoredUser, createdAt: string = new Date().toISOString()): Promise<void> {
     checkUser(u);
     const batch = this.db.batch();
+    const email = u.email ? u.email.trim().toLowerCase() : null;
     batch.create(this.usernames().doc(nameKey(u.username)), { user_id: u.id });
+    if (email) batch.create(this.emails().doc(nameKey(email)), { user_id: u.id });
     batch.create(this.user(u.id), {
       username: u.username,
       username_lower: u.username.toLowerCase(),
+      email,
       password_hash: u.password_hash ?? null,
       monthly_income: u.monthly_income,
       target_savings_percent: u.target_savings_percent,
@@ -161,6 +174,7 @@ export class FirestoreRepo implements Repo {
     // The account itself goes last, so an interrupted delete can be re-run.
     const batch = this.db.batch();
     batch.delete(this.usernames().doc(nameKey(u.username)));
+    if (u.email) batch.delete(this.emails().doc(nameKey(u.email)));
     batch.delete(this.user(id));
     await batch.commit();
     this.dropCache(id);

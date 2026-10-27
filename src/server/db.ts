@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS meta (
 CREATE TABLE IF NOT EXISTS users (
   id                     TEXT PRIMARY KEY,
   username               TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  email                  TEXT,
   password_hash          TEXT,
   monthly_income         REAL NOT NULL CHECK (monthly_income >= 0),
   target_savings_percent REAL NOT NULL CHECK (target_savings_percent BETWEEN 0 AND 90),
@@ -74,6 +75,7 @@ const toUser = (r: Row | undefined): StoredUser | undefined =>
     ? {
         id: String(r.id),
         username: String(r.username),
+        ...(r.email == null ? {} : { email: String(r.email) }),
         password_hash: r.password_hash == null ? undefined : String(r.password_hash),
         monthly_income: Number(r.monthly_income),
         target_savings_percent: Number(r.target_savings_percent),
@@ -98,6 +100,10 @@ export class SqliteRepo {
     this.db = openSqlite(file);
     this.db.exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL; PRAGMA busy_timeout = 5000;');
     this.db.exec(SCHEMA);
+    // Databases made before email was added: add the column in place.
+    const cols = (this.db.prepare('PRAGMA table_info(users)').all() as Row[]).map(c => String(c.name));
+    if (!cols.includes('email')) this.db.exec('ALTER TABLE users ADD COLUMN email TEXT');
+    this.db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users(email) WHERE email IS NOT NULL');
     this.db.prepare('INSERT OR IGNORE INTO meta (key, value) VALUES (?, ?)').run('schema_version', String(SCHEMA_VERSION));
   }
 
@@ -128,6 +134,10 @@ export class SqliteRepo {
     return toUser(this.db.prepare('SELECT * FROM users WHERE id = ?').get(id) as Row | undefined);
   }
 
+  findUserByEmail(email: string): StoredUser | undefined {
+    return toUser(this.db.prepare('SELECT * FROM users WHERE email = ?').get(email.trim().toLowerCase()) as Row | undefined);
+  }
+
   findUserByUsername(username: string): StoredUser | undefined {
     return toUser(this.db.prepare('SELECT * FROM users WHERE username = ? COLLATE NOCASE').get(username) as Row | undefined);
   }
@@ -135,10 +145,10 @@ export class SqliteRepo {
   createUser(u: StoredUser, createdAt: string = new Date().toISOString()): void {
     this.db
       .prepare(
-        `INSERT INTO users (id, username, password_hash, monthly_income, target_savings_percent, role, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO users (id, username, email, password_hash, monthly_income, target_savings_percent, role, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
       )
-      .run(u.id, u.username, u.password_hash ?? null, u.monthly_income, u.target_savings_percent, u.role ?? null, createdAt);
+      .run(u.id, u.username, u.email ? u.email.trim().toLowerCase() : null, u.password_hash ?? null, u.monthly_income, u.target_savings_percent, u.role ?? null, createdAt);
   }
 
   updateProfile(id: string, fields: { monthly_income?: number; target_savings_percent?: number }): StoredUser | undefined {

@@ -135,14 +135,36 @@ test('a token for a deleted user stops working', async () => {
 
 test('registration stores a hash, never the password, and enforces the rules', async () => {
   const h = await harness();
-  const r = await h.call('POST', '/api/register', { body: { username: 'carol', password: 'carol-secret-1', monthly_income: 45000 } });
+  const r = await h.call('POST', '/api/register', { body: { username: 'carol', email: 'carol@example.com', password: 'carol-secret-1', monthly_income: 45000 } });
   assert.equal(r.status, 200);
   const onDisk = [h.file, `${h.file}-wal`].filter(f => fs.existsSync(f)).map(f => fs.readFileSync(f).toString('latin1')).join('');
   assert.ok(!onDisk.includes('carol-secret-1'), 'password must never reach the database file');
   assert.ok(h.fresh().findUserByUsername('carol')!.password_hash!.startsWith('scrypt$'));
   assert.equal((await h.login('carol', 'carol-secret-1')).status, 200);
-  assert.equal((await h.call('POST', '/api/register', { body: { username: 'CAROL', password: 'whatever-123' } })).status, 400);
-  assert.equal((await h.call('POST', '/api/register', { body: { username: 'dave', password: 'short' } })).status, 400);
+  assert.equal((await h.call('POST', '/api/register', { body: { username: 'CAROL', email: 'other@example.com', password: 'whatever-123' } })).status, 400);
+  assert.equal((await h.call('POST', '/api/register', { body: { username: 'dave', email: 'dave@example.com', password: 'short' } })).status, 400);
+});
+
+test('sign-up asks for an email, not an income; the email is unique and can be used to sign in', async () => {
+  const h = await harness();
+  const reg = (body: object) => h.call('POST', '/api/register', { body });
+  assert.equal((await reg({ username: 'erin', password: 'erin-secret-1' })).status, 400, 'email is required');
+  for (const bad of ['erin', 'erin@', '@example.com', 'erin@example', 'er in@example.com']) {
+    assert.equal((await reg({ username: 'erin', email: bad, password: 'erin-secret-1' })).status, 400, bad);
+  }
+  assert.equal((await reg({ username: 'erin', email: '  Erin@Example.COM ', password: 'erin-secret-1' })).status, 200);
+  const dup = await reg({ username: 'erin2', email: 'erin@example.com', password: 'erin-secret-1' });
+  assert.equal(dup.status, 400);
+  assert.match(dup.body.detail, /email already exists/);
+  const u = h.fresh().findUserByUsername('erin')!;
+  assert.equal(u.email, 'erin@example.com', 'stored trimmed and in lower case');
+  assert.equal(u.monthly_income, 0, 'no income is invented at sign-up');
+  assert.equal((await h.login('ERIN@example.com', 'erin-secret-1')).status, 200, 'sign in with email');
+  assert.equal((await h.login('erin', 'erin-secret-1')).status, 200, 'or with username');
+  const token = (await (await h.login('erin', 'erin-secret-1')).json()).access_token;
+  assert.equal((await h.call('GET', '/api/profile', { token })).body.email, 'erin@example.com');
+  // Setting the income afterwards (welcome screen / Settings) works as before.
+  assert.equal((await h.call('PUT', '/api/profile', { token, body: { monthly_income: 42000 } })).body.monthly_income, 42000);
 });
 
 test('repeated failed logins are rate limited', async () => {
@@ -397,7 +419,7 @@ test('forecast fallback on a stale log projects from the 30 days before the late
 
 test('a brand-new account gets no invented forecast', async () => {
   const h = await harness({ ml: { forecast: [1, 2, 3, 4], model: 'chronos-2' } });
-  const r = await h.call('POST', '/api/register', { body: { username: 'newbie', password: 'newbie-pass-1', monthly_income: 50000 } });
+  const r = await h.call('POST', '/api/register', { body: { username: 'newbie', email: 'newbie@example.com', password: 'newbie-pass-1', monthly_income: 50000 } });
   assert.equal(r.status, 200);
   const login = await (await h.login('newbie', 'newbie-pass-1')).json();
   const d = (await h.call('GET', '/api/dashboard', { token: login.access_token })).body;

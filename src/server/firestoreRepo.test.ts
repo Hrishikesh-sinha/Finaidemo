@@ -52,8 +52,8 @@ test('everything done in the app is stored in Firestore and survives a restart',
   assert.equal((await a.call('GET', '/api/health')).body.storage, 'firestore');
 
   // Accounts
-  assert.equal((await a.call('POST', '/api/register', { body: { username: 'Asha', password: 'asha-password', monthly_income: 60000 } })).status, 200);
-  const dup = await a.call('POST', '/api/register', { body: { username: 'asha', password: 'other-password', monthly_income: 1 } });
+  assert.equal((await a.call('POST', '/api/register', { body: { username: 'Asha', email: 'asha@example.com', password: 'asha-password', monthly_income: 60000 } })).status, 200);
+  const dup = await a.call('POST', '/api/register', { body: { username: 'asha', email: 'asha2@example.com', password: 'other-password', monthly_income: 1 } });
   assert.equal(dup.status, 400, 'usernames are unique regardless of case');
   const t = (await a.login('ASHA', 'asha-password'))!;
   assert.ok(t);
@@ -77,11 +77,15 @@ test('everything done in the app is stored in Firestore and survives a restart',
   assert.deepEqual(fake.paths(`users/${uid}/anomaly_reviews/`), [`users/${uid}/anomaly_reviews/${keep}`], "a deleted transaction's review goes with it");
   assert.equal(fake.paths(`users/${uid}/transactions/`).length, 2);
   assert.ok(fake.docs.has('usernames/asha'));
+  assert.equal(fake.docs.get(`users/${uid}`)!.email, 'asha@example.com');
+  assert.ok(fake.docs.has('emails/asha%40example.com'));
+  const sameEmail = await a.call('POST', '/api/register', { body: { username: 'asha_b', email: 'ASHA@example.com', password: 'other-password' } });
+  assert.equal(sameEmail.status, 400, 'emails are unique regardless of case');
 
   // "Restart": a brand-new server process on the same Firestore.
   const b = await serve(fake);
   assert.equal(await b.login('asha', 'asha-password'), undefined, 'old password no longer works');
-  const t2 = (await b.login('asha', 'asha-new-password'))!;
+  const t2 = (await b.login('asha@example.com', 'asha-new-password'))!; // sign in by email
   assert.ok(t2);
   const profile = (await b.call('GET', '/api/profile', { token: t2 })).body;
   assert.deepEqual([profile.monthly_income, profile.target_savings_percent], [65000, 25]);
@@ -98,7 +102,7 @@ test('everything done in the app is stored in Firestore and survives a restart',
 test("one user cannot see, change or delete another user's records", async () => {
   const fake = new FakeFirestore();
   const s = await serve(fake);
-  for (const u of ['alice', 'bob']) await s.call('POST', '/api/register', { body: { username: u, password: `${u}-password`, monthly_income: 50000 } });
+  for (const u of ['alice', 'bob']) await s.call('POST', '/api/register', { body: { username: u, email: `${u}@example.com`, password: `${u}-password`, monthly_income: 50000 } });
   const ta = (await s.login('alice', 'alice-password'))!;
   const tb = (await s.login('bob', 'bob-password'))!;
   const bobTx = (await s.call('POST', '/api/transactions', { token: tb, body: { amount: 777, merchant: 'Bob Private', category: 'Food', date: '2026-10-10' } })).body.id;
@@ -143,14 +147,14 @@ test('a batch with one bad transaction writes nothing', async () => {
 test('deleting a user removes their transactions, reviews and username', async () => {
   const fake = new FakeFirestore();
   const repo = repoOn(fake);
-  await repo.createUser({ id: 'u1', username: 'Kaggle_Demo', monthly_income: 1, target_savings_percent: 1 });
+  await repo.createUser({ id: 'u1', username: 'Kaggle_Demo', email: 'k@example.com', monthly_income: 1, target_savings_percent: 1 });
   await repo.insertTransaction({ id: 't1', user_id: 'u1', amount: 5, merchant: 'm', category: 'Food', date: '2026-01-01' }, 'kaggle');
   await repo.setReview('u1', 't1', 'dismissed');
   await repo.setMeta('import:u1', '{"dataset":"x"}');
   assert.equal(await repo.deleteUser('u1'), true);
   assert.deepEqual(fake.paths().filter(p => !p.startsWith('meta/')), []);
-  // The name can be registered again, and import metadata is kept (as in SQLite).
-  await repo.createUser({ id: 'u2', username: 'kaggle_demo', monthly_income: 1, target_savings_percent: 1 });
+  // The name and email can be registered again, and import metadata is kept (as in SQLite).
+  await repo.createUser({ id: 'u2', username: 'kaggle_demo', email: 'k@example.com', monthly_income: 1, target_savings_percent: 1 });
   assert.equal(await repo.getMeta('import:u1'), '{"dataset":"x"}');
   assert.equal(await repo.deleteUser('nobody'), false);
 });

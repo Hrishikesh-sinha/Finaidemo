@@ -152,14 +152,18 @@ export function createApp(deps: AppDeps) {
   app.post('/api/register', ah(async (req, res) => {
     const v = validateRegistration(req.body);
     if ('error' in v) return bad(res, v.error);
-    const { username, password, monthly_income } = v.value;
+    const { username, email, password, monthly_income } = v.value;
     if (await repo.findUserByUsername(username)) {
       return bad(res, 'Username already registered');
+    }
+    if (await repo.findUserByEmail(email)) {
+      return bad(res, 'An account with this email already exists. Sign in instead.');
     }
     try {
       await repo.createUser({
         id: `user_${randomBytes(9).toString('base64url')}`,
         username,
+        email,
         password_hash: await hashPassword(password),
         monthly_income,
         target_savings_percent: 20.0
@@ -167,6 +171,7 @@ export function createApp(deps: AppDeps) {
     } catch (err) {
       // Two registrations for the same name at once: the second loses here.
       if (await repo.findUserByUsername(username)) return bad(res, 'Username already registered');
+      if (await repo.findUserByEmail(email)) return bad(res, 'An account with this email already exists. Sign in instead.');
       throw err;
     }
     return res.json({ message: 'User registered successfully' });
@@ -180,7 +185,8 @@ export function createApp(deps: AppDeps) {
       res.setHeader('Retry-After', String(wait));
       return bad(res, `Too many sign-in attempts. Try again in ${wait} seconds.`, 429);
     }
-    const user = await repo.findUserByUsername(username);
+    // Sign in with either the username or the email address.
+    const user = username.includes('@') ? await repo.findUserByEmail(username) : await repo.findUserByUsername(username);
     const valid = user?.password_hash
       ? await verifyPassword(password, user.password_hash)
       : await burnPasswordCheck(password);
@@ -192,6 +198,7 @@ export function createApp(deps: AppDeps) {
     const user = (req as AuthedRequest).user;
     return res.json({
       username: user.username,
+      email: user.email ?? null,
       monthly_income: user.monthly_income,
       target_savings_percent: user.target_savings_percent,
       is_admin: user.role === 'admin'
@@ -205,6 +212,7 @@ export function createApp(deps: AppDeps) {
     const updated = (await repo.updateProfile(user.id, v.value))!;
     return res.json({
       username: updated.username,
+      email: updated.email ?? null,
       monthly_income: updated.monthly_income,
       target_savings_percent: updated.target_savings_percent,
       is_admin: updated.role === 'admin'

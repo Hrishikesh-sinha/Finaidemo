@@ -7,7 +7,8 @@ import { Eye, EyeOff, Loader2, Shield } from 'lucide-react';
 
 const USERNAME_RE = /^[A-Za-z0-9_.-]{3,32}$/;
 const LAST_USERNAME_KEY = 'finai_last_username';
-const MAX_INCOME = 10_000_000;
+// Same loose rule as the server: one @, a dot in the domain, no spaces.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Mode = 'signin' | 'register';
 
@@ -44,7 +45,7 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
   const [username, setUsername] = useState(readLastUsername);
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [income, setIncome] = useState('');
+  const [email, setEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -70,24 +71,22 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
     firstField.current?.focus();
   }, [mode]);
 
-  const incomeNumber = Number(income);
+  const emailClean = email.trim();
   const problems: Record<string, string | null> =
     mode === 'register'
       ? {
           username: USERNAME_RE.test(username) ? null : '3–32 characters: letters, numbers, dot, dash or underscore. No spaces.',
-          income:
-            income.trim() === ''
-              ? 'Enter your monthly income.'
-              : !Number.isFinite(incomeNumber) || incomeNumber <= 0
-                ? 'Enter an amount greater than zero.'
-                : incomeNumber > MAX_INCOME
-                  ? 'Enter at most ₹1,00,00,000.'
-                  : null,
+          email:
+            emailClean === ''
+              ? 'Enter your email address.'
+              : emailClean.length > 254 || !EMAIL_RE.test(emailClean)
+                ? 'Enter a valid email address, like name@example.com.'
+                : null,
           password: password.length >= 8 && password.length <= 128 ? null : 'Use at least 8 characters.',
           confirm: confirm === password ? null : 'The passwords do not match.'
         }
       : {
-          username: username.trim() ? null : 'Enter your username.',
+          username: username.trim() ? null : 'Enter your username or email.',
           password: password ? null : 'Enter your password.'
         };
   const firstProblem = Object.entries(problems).find(([, p]) => p)?.[0];
@@ -108,7 +107,7 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
         const res = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: name, password, monthly_income: Math.round(incomeNumber * 100) / 100 })
+          body: JSON.stringify({ username: name, email: emailClean, password })
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.detail || 'The account could not be created. Try again.');
@@ -182,12 +181,12 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
           </div>
 
           <h1 className="mt-8 text-2xl font-semibold tracking-tight">
-            {mode === 'signin' ? 'Welcome back' : 'Start with your income'}
+            {mode === 'signin' ? 'Welcome back' : 'Create your account'}
           </h1>
           <p className="mt-1.5 text-sm text-ink-2">
             {mode === 'signin'
               ? 'Sign in to see where this month went.'
-              : 'Your savings rate and goals are worked out from it. Everything else comes from what you log.'}
+              : 'You will add your monthly income right after this. Everything else comes from what you log.'}
           </p>
 
           {notice && !error && (
@@ -200,7 +199,7 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
           <form onSubmit={submit} noValidate className="mt-6 space-y-4">
             <Field
               id={`${ids}-username`}
-              label="Username"
+              label={mode === 'signin' ? 'Username or email' : 'Username'}
               hint={mode === 'register' ? 'Letters, numbers, dot, dash or underscore.' : undefined}
               error={shown('username')}
             >
@@ -214,7 +213,7 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
                 autoComplete="username"
                 autoCapitalize="none"
                 spellCheck={false}
-                maxLength={32}
+                maxLength={mode === 'signin' ? 254 : 32}
                 aria-invalid={Boolean(shown('username'))}
                 aria-describedby={describedBy('username', mode === 'register')}
                 className="auth-input"
@@ -222,19 +221,21 @@ export function AuthScreen({ onSignedIn, onOpenAdmin, notice }: Props) {
             </Field>
 
             {mode === 'register' && (
-              <Field id={`${ids}-income`} label="Monthly income (₹)" hint="Take-home pay for a typical month." error={shown('income')}>
+              <Field id={`${ids}-email`} label="Email" hint="You can sign in with it as well as your username." error={shown('email')}>
                 <input
-                  id={`${ids}-income`}
-                  type="number"
-                  inputMode="decimal"
-                  min="1"
-                  step="any"
-                  value={income}
-                  onChange={e => setIncome(e.target.value)}
-                  onBlur={() => setTouched(t => ({ ...t, income: true }))}
-                  aria-invalid={Boolean(shown('income'))}
-                  aria-describedby={describedBy('income', true)}
-                  className="auth-input tabular-nums"
+                  id={`${ids}-email`}
+                  type="email"
+                  inputMode="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  onBlur={() => setTouched(t => ({ ...t, email: true }))}
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  maxLength={254}
+                  aria-invalid={Boolean(shown('email'))}
+                  aria-describedby={describedBy('email', true)}
+                  className="auth-input"
                 />
               </Field>
             )}
