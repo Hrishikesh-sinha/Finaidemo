@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react';
+import { useState, useEffect, useMemo, useRef, type ReactNode, type FormEvent } from 'react';
 import { 
   TrendingUp, TrendingDown, DollarSign, Wallet, 
   Activity, AlertTriangle, MessageSquare, Plus,
@@ -792,6 +792,12 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
           )}
 
         </div>
+
+        {/* Income is no longer asked for at sign-up: until it is set, ask here
+            rather than computing a savings rate against ₹0. */}
+        {!mockUser && token && stats && stats.monthly_income === 0 && (view === 'overview' || view === 'forecast' || view === 'planner') && (
+          <IncomePrompt token={token} onSaved={fetchData} />
+        )}
 
         {isNewAccount && (view === 'overview' || view === 'forecast' || view === 'planner') ? (
           <NewAccountWelcome
@@ -1792,11 +1798,69 @@ export function Dashboard({ token, mockUser, onBackToAdmin, onSelectUser, allMoc
 // computed figure except the income the person entered at sign-up.
 // ---------------------------------------------------------------------------
 
+// Shown while the account has no monthly income set (new sign-ups).
+function IncomePrompt({ token, onSaved }: { token: string; onSaved: () => unknown }) {
+  const [value, setValue] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const n = Number(value);
+  const save = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!value.trim() || !Number.isFinite(n) || n <= 0) return setError('Enter an amount greater than zero.');
+    if (n > 10_000_000) return setError('Enter at most ₹1,00,00,000.');
+    setBusy(true);
+    setError('');
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ monthly_income: Math.round(n * 100) / 100 })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.detail || 'Could not save. Try again.');
+      await onSaved();
+    } catch (err: any) {
+      setError(err?.message || 'Could not save. Try again.');
+      setBusy(false);
+    }
+  };
+  return (
+    <form onSubmit={save} aria-labelledby="income-prompt-title" className="mt-8 rounded-lg border border-accent/40 bg-surface p-5 flex flex-col sm:flex-row sm:items-end gap-4">
+      <div className="flex-1 min-w-0">
+        <h2 id="income-prompt-title" className="text-base font-semibold text-ink">What is your monthly income?</h2>
+        <p className="mt-1 text-sm text-ink-2">Take-home pay for a typical month. Your savings rate and goals are worked out from it; you can change it in Settings.</p>
+        {error && <p role="alert" className="mt-2 text-sm text-neg">{error}</p>}
+      </div>
+      <label className="sr-only" htmlFor="income-prompt-input">Monthly income in rupees</label>
+      <div className="flex gap-2">
+        <div className="relative">
+          <span className="absolute inset-y-0 left-3 flex items-center text-sm text-ink-2" aria-hidden="true">₹</span>
+          <input
+            id="income-prompt-input"
+            type="number"
+            inputMode="decimal"
+            min="1"
+            step="any"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            className="w-40 pl-7 pr-3 py-2.5 rounded-lg border border-line bg-raised text-ink text-sm tabular-nums focus:outline-none focus:border-accent"
+          />
+        </div>
+        <button type="submit" disabled={busy} className="px-4 py-2.5 rounded-lg bg-accent text-canvas text-sm font-medium hover:bg-accent-hi disabled:opacity-60">
+          {busy ? 'Saving' : 'Save'}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 function NewAccountWelcome({ income, onAdd }: { income: number; onAdd: (method: 'manual' | 'ocr' | 'voice') => void }) {
   const steps: { when: string; what: string }[] = [
     {
       when: 'Your first entry',
-      what: `Spending for the last 30 days by category, your savings rate against ${inr(income)} a month, and the What-if simulator.`
+      what: income > 0
+        ? `Spending for the last 30 days by category, your savings rate against ${inr(income)} a month, and the What-if simulator.`
+        : 'Spending for the last 30 days by category, your savings rate against your monthly income, and the What-if simulator.'
     },
     {
       when: 'A few entries in a category',

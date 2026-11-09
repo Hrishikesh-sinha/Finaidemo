@@ -6,22 +6,22 @@
 //   npm run admin:grant -- <username>
 //   npm run admin:grant -- <username> --revoke
 
-import { DB_FILE } from './cli-common';
-import { SqliteRepo } from '../src/server/db';
+import { openRepo } from './cli-common';
+import type { Repo } from '../src/server/repo';
 
 const username = process.argv[2];
 const revoke = process.argv.includes('--revoke');
-let repo: SqliteRepo | null = null;
+let repo: Repo | null = null;
 try {
   if (!username || username.startsWith('--')) throw new Error('Usage: npm run admin:grant -- <username> [--revoke]');
-  repo = new SqliteRepo(DB_FILE);
-  const user = repo.findUserByUsername(username);
+  repo = await openRepo();
+  const user = await repo.findUserByUsername(username);
   if (!user) throw new Error(`No account named ${username}. Register it in the app first.`);
-  repo.setRole(user.id, revoke ? null : 'admin');
+  await repo.setRole(user.id, revoke ? null : 'admin');
   console.log(revoke ? `${user.username} is no longer an admin.` : `${user.username} is now an admin.`);
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);
   process.exitCode = 1;
 } finally {
-  repo?.close();
+  await repo?.close();
 }

@@ -10,9 +10,8 @@
 
 import fs from 'node:fs';
 import { randomBytes } from 'node:crypto';
-import { DB_FILE, promptHidden } from './cli-common';
+import { openRepo, promptHidden } from './cli-common';
 import { hashPassword } from '../src/server/auth';
-import { SqliteRepo } from '../src/server/db';
 import { buildKaggleImport } from '../src/server/kaggleImport';
 
 async function main() {
@@ -22,9 +21,9 @@ async function main() {
   if (!csv || !username) throw new Error('Usage: npm run import:kaggle -- <csv> [--username NAME] [--no-shift] [--replace]');
   const text = fs.readFileSync(csv, 'utf-8');
 
-  const repo = new SqliteRepo(DB_FILE);
+  const repo = await openRepo();
   try {
-    const existing = repo.findUserByUsername(username);
+    const existing = await repo.findUserByUsername(username);
     if (existing && !args.includes('--replace')) throw new Error(`${username} already exists. Add --replace to re-import it.`);
 
     const password = process.env.KAGGLE_DEMO_PASSWORD
@@ -35,11 +34,11 @@ async function main() {
     const imp = buildKaggleImport(text, userId, { shift: !args.includes('--no-shift') });
     const hash = await hashPassword(password);
 
-    repo.transaction(() => {
-      if (existing) repo.deleteUser(existing.id);
-      repo.createUser({ id: userId, username, password_hash: hash, monthly_income: imp.monthlyIncome, target_savings_percent: 20 });
-      for (const t of imp.transactions) repo.insertTransaction(t, 'kaggle');
-      repo.setMeta(`import:${userId}`, JSON.stringify({
+    {
+      if (existing) await repo.deleteUser(existing.id);
+      await repo.createUser({ id: userId, username, password_hash: hash, monthly_income: imp.monthlyIncome, target_savings_percent: 20 });
+      await repo.insertTransactions(imp.transactions, 'kaggle');
+      await repo.setMeta(`import:${userId}`, JSON.stringify({
         dataset: 'Daily Transactions Dataset (Prasad Patil, Kaggle)',
         url: 'https://www.kaggle.com/datasets/prasad22/daily-transactions-dataset',
         original_first: imp.originalFirst,
@@ -48,7 +47,7 @@ async function main() {
         imported_at: new Date().toISOString(),
         counts: imp.counts
       }));
-    });
+    }
 
     const c = imp.counts;
     console.log(`Imported ${imp.transactions.length} spending transactions into ${username}.`);
@@ -58,7 +57,7 @@ async function main() {
       ? `  dates shifted forward ${imp.shiftWeeks} weeks (original ${imp.originalFirst} to ${imp.originalLast}); the app labels this`
       : `  original dates kept (${imp.originalFirst} to ${imp.originalLast})`);
   } finally {
-    repo.close();
+    await repo.close();
   }
 }
 

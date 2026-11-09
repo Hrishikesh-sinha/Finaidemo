@@ -63,9 +63,12 @@ test('voice: amounts with Indian grouping and a merchant after "at"', () => {
 });
 
 test('registration: username, password length and income are checked', () => {
-  assert.ok(!isErr(validateRegistration({ username: 'asha_k', password: 'longenough' })));
-  assert.ok(isErr(validateRegistration({ username: 'a', password: 'longenough' })));
-  assert.ok(isErr(validateRegistration({ username: 'bad name', password: 'longenough' })));
-  assert.ok(isErr(validateRegistration({ username: 'asha', password: 'short' })));
-  assert.ok(isErr(validateRegistration({ username: 'asha', password: 'longenough', monthly_income: -1 })));
+  const e = 'asha@example.com';
+  assert.ok(!isErr(validateRegistration({ username: 'asha_k', email: e, password: 'longenough' })));
+  assert.ok(isErr(validateRegistration({ username: 'asha_k', password: 'longenough' })), 'email required');
+  assert.ok(isErr(validateRegistration({ username: 'asha_k', email: 'not-an-email', password: 'longenough' })));
+  assert.ok(isErr(validateRegistration({ username: 'a', email: e, password: 'longenough' })));
+  assert.ok(isErr(validateRegistration({ username: 'bad name', email: e, password: 'longenough' })));
+  assert.ok(isErr(validateRegistration({ username: 'asha', email: e, password: 'short' })));
+  assert.ok(isErr(validateRegistration({ username: 'asha', email: e, password: 'longenough', monthly_income: -1 })));
 });

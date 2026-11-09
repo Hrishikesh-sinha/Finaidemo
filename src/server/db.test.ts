@@ -108,3 +108,19 @@ test('first start with no JSON creates the synthetic demo account', async () => 
   assert.equal(txs.length, 400);
   assert.ok(txs.every(t => t.source === 'synthetic'));
 });
+
+test('a database made before emails existed gains the column and keeps its accounts', async () => {
+  const { DatabaseSync } = (process as unknown as { getBuiltinModule(id: string): typeof import('node:sqlite') }).getBuiltinModule('node:sqlite');
+  const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'finai-old-')), 'old.sqlite');
+  const old = new DatabaseSync(file);
+  old.exec(`CREATE TABLE users (id TEXT PRIMARY KEY, username TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT,
+    monthly_income REAL NOT NULL, target_savings_percent REAL NOT NULL, role TEXT, created_at TEXT NOT NULL)`);
+  old.prepare('INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)').run('u_old', 'oldie', null, 30000, 20, null, '2026-01-01');
+  old.close();
+  const r = new SqliteRepo(file);
+  assert.equal(r.findUserByUsername('oldie')!.email, undefined);
+  r.createUser({ id: 'u_new', username: 'newbie', email: 'New@Example.com', monthly_income: 0, target_savings_percent: 20 });
+  assert.equal(r.findUserByEmail('new@example.com')!.id, 'u_new');
+  assert.throws(() => r.createUser({ id: 'u_x', username: 'other', email: 'new@example.com', monthly_income: 0, target_savings_percent: 20 }));
+  r.close();
+});

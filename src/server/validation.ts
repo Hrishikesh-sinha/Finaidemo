@@ -185,23 +185,33 @@ export function parseVoiceText(raw: unknown): Result<{ amount: number; merchant:
 }
 
 const USERNAME_RE = /^[A-Za-z0-9_.-]{3,32}$/;
+// Deliberately loose (one @, a dot in the domain, no spaces): the address is
+// stored, not verified, so a stricter pattern would only reject real ones.
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const normalizeEmail = (e: string) => e.trim().toLowerCase();
 
-export function validateRegistration(body: unknown): Result<{ username: string; password: string; monthly_income: number }> {
+// Monthly income is no longer asked for at sign-up; it starts at 0 and the
+// person sets it on the welcome screen or in Settings. An income is never
+// invented for them.
+export function validateRegistration(body: unknown): Result<{ username: string; email: string; password: string; monthly_income: number }> {
   if (!body || typeof body !== 'object') return fail('Request body must be a JSON object.');
   const b = body as Record<string, unknown>;
   if (typeof b.username !== 'string' || !USERNAME_RE.test(b.username)) {
     return fail('Username must be 3–32 characters: letters, digits, dot, dash or underscore.');
   }
+  const email = typeof b.email === 'string' ? normalizeEmail(b.email) : '';
+  if (!email) return fail('Enter your email address.');
+  if (email.length > 254 || !EMAIL_RE.test(email)) return fail('Enter a valid email address, like name@example.com.');
   if (typeof b.password !== 'string' || b.password.length < 8 || b.password.length > 128) {
     return fail('Password must be 8–128 characters.');
   }
-  let income = 50000;
+  let income = 0;
   if (b.monthly_income !== undefined) {
     const n = typeof b.monthly_income === 'number' ? b.monthly_income : NaN;
     if (!Number.isFinite(n) || n < 0 || n > MAX_AMOUNT) return fail('Monthly income must be a number between 0 and ₹1,00,00,000.');
     income = Math.round(n * 100) / 100;
   }
-  return ok({ username: b.username, password: b.password, monthly_income: income });
+  return ok({ username: b.username, email, password: b.password, monthly_income: income });
 }
 
 // Settings: monthly income and savings target, both optional, at least one.

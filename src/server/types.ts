@@ -3,6 +3,9 @@
 export interface StoredUser {
   id: string;
   username: string;
+  // Stored in lower case; unique. Accounts created before emails were asked
+  // for have none.
+  email?: string;
   // scrypt hash, see auth.ts. Plaintext `password` fields only exist in stores
   // written before the Phase-2 migration and are removed by migrateStore().
   password_hash?: string;
